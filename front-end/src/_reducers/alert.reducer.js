@@ -7,17 +7,14 @@ export function alert(state = {}, action) {
                 type: 'alert-success',
                 message: action.message
             };
-
         case alertConstants.ERROR:
             return {
                 type: 'alert-danger',
                 message: action.message
             };
-
         case alertConstants.CLEAR:
             return {};
-
-            default:
+        default:
             return state
     }
 }

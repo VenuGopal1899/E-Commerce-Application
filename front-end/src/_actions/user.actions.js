@@ -17,7 +17,7 @@ function login(username, password, from) {
 
         userService.login(username, password)
             .then(
-                user => {
+                user => { 
                     dispatch(success(user));
                     history.push(from);
                 },
@@ -44,7 +44,7 @@ function register(user) {
 
         userService.register(user)
             .then(
-                user => {
+                user => { 
                     dispatch(success());
                     history.push('/login');
                     dispatch(alertActions.success('Registration successful'));
@@ -77,6 +77,7 @@ function getAll() {
     function failure(error) { return { type: userConstants.GETALL_FAILURE, error } }
 }
 
+// prefixed function name with underscore because delete is a reserved word in javascript
 function _delete(id) {
     return dispatch => {
         dispatch(request(id));
