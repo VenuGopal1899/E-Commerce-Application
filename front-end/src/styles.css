@@ -1,9 +1,50 @@
 @import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 .header-container{
-    height: 70px !important;
+    height: 80px !important;
+    border-radius: 45px;
+    background-color: #4373e4 !important;
 }
-
 .header{
-    font-size: 50px;
+    font-size: 55px;
+}
+.login-container{
+    width: 400px;
+    margin: 60px 0px 0px 600px;
+}
+.register-container{
+    width: 500px;
+    margin-top: 30px;
+}
+.homepage-content .navbar-brand{
+    font-size: 40px !important;
+    margin-left: 20px;
+    font-weight: 500;
+}
+.homepage-nav{
+    border-bottom: 1px solid black;
+    border-radius: 25px;
+}
+.header-nav-items{
+    margin-left: 780px;
+}
+.header-nav-items a{
+    font-size: 27px;
+    color: #4373e4  !important;
+}
+.header-nav-items a:hover, a:active{
+    color: #e94cb5 !important;
+}
+.header-nav-items .logout{
+    font-size: 27px;
+    margin-left: 80px;
+    color: #4373e4 !important;
+    padding: 4px;
+    margin-top: 4px
+}
+.header-nav-items .logout:hover{
+    border: 1px solid rgb(255, 0, 0);
+}
+.users-table{
+    width: 700px;
 }

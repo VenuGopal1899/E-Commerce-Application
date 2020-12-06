@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { userActions } from '../_actions';
+import '../styles.css';
 
 function HomePage() {
     const users = useSelector(state => state.users);
     const user = useSelector(state => state.authentication.user);
+    console.log('User is ', user);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -18,28 +20,48 @@ function HomePage() {
     }
 
     return (
-        <div className="col-lg-8 offset-lg-2">
-            <h1>Hi {user.firstName}!</h1>
-            <h3>All registered users:</h3>
+        <div className="homepage-content">
+            <nav className="navbar navbar-expand-lg navbar-light bg-light homepage-nav">
+                <a className="navbar-brand" href="#">Hi {user.firstName}!</a>
+                <div className="header-nav-items">
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><Link className="nav-link" to="/users">Users</Link></li>
+                        <li class="nav-item"><Link className="nav-link" to="#">Products</Link></li>
+                        <li class="nav-item"><Link className="nav-link" to="#">Requests</Link></li>
+                        <li class="nav-item"><Link className="nav-link logout" to="/login">Logout</Link></li>
+                    </ul>
+                </div>
+            </nav>
             {users.loading && <em>Loading users...</em>}
             {users.error && <span className="text-danger">ERROR: {users.error}</span>}
             {users.items &&
-                <ul>
-                    {users.items.map((user, index) =>
-                        <li key={user.id}>
-                            {user.firstName + ' ' + user.lastName}
-                            {
-                                user.deleting ? <em> - Deleting...</em>
-                                : user.deleteError ? <span className="text-danger"> - ERROR: {user.deleteError}</span>
-                                : <span> - <a onClick={() => handleDeleteUser(user.id)} className="text-primary">Delete</a></span>
-                            }
-                        </li>
-                    )}
-                </ul>
+                <div className="users-table container">
+                    <table class="table">
+                        <thead className="thead-light">
+                            <tr>
+                            <th scope="col">User ID</th>
+                            <th scope="col">First Name</th>
+                            <th scope="col">Last Name</th>
+                            <th scope="col">Mail</th>
+                            <th scope="col">Contact No</th>
+                            <th scope="col">Remove User</th>
+                            </tr>
+                        </thead>
+                        {users.items.map((user, index) =>
+                            <tbody key={user.id}>
+                                <tr>
+                                <th scope="row">User100{user.id}</th>
+                                <td>{user.firstName}</td>
+                                <td>{user.lastName}</td>
+                                <td>{user.mail}</td>
+                                <td>{user.phoneno}</td>
+                                <td><button onClick={() => handleDeleteUser(user.id)} className="btn btn-outline-danger">Delete</button></td>
+                                </tr>
+                            </tbody>
+                        )}
+                    </table>
+                </div>
             }
-            <p>
-                <Link to="/login">Logout</Link>
-            </p>
         </div>
     );
 }

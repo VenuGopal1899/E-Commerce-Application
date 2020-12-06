@@ -9,6 +9,8 @@ function RegisterPage() {
         firstName: '',
         lastName: '',
         username: '',
+        mail: '',
+        phoneno: '',
         password: ''
     });
     const [submitted, setSubmitted] = useState(false);
@@ -29,14 +31,14 @@ function RegisterPage() {
         e.preventDefault();
 
         setSubmitted(true);
-        if (user.firstName && user.lastName && user.username && user.password) {
+        if (user.firstName && user.lastName && user.username && user.mail && user.phoneno && user.password) {
             dispatch(userActions.register(user));
         }
     }
 
     return (
-        <div className="col-lg-8 offset-lg-2">
-            <h2>Register</h2>
+        <div className="register-container container">
+            <h2 className="text-center display-5">Register</h2>
             <form name="form" onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label>First Name</label>
@@ -50,6 +52,20 @@ function RegisterPage() {
                     <input type="text" name="lastName" value={user.lastName} onChange={handleChange} className={'form-control' + (submitted && !user.lastName ? ' is-invalid' : '')} />
                     {submitted && !user.lastName &&
                         <div className="invalid-feedback">Last Name is required</div>
+                    }
+                </div>
+                <div className="form-group">
+                    <label>Mail</label>
+                    <input type="email" name="mail" value={user.mail} onChange={handleChange} className={'form-control' + (submitted && !user.mail ? ' is-invalid' : '')} />
+                    {submitted && !user.mail &&
+                        <div className="invalid-feedback">Mail is required</div>
+                    }
+                </div>
+                <div className="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" name="phoneno" value={user.phoneno} pattern="[1-9][0-9]{9,11}" maxlength="10" onChange={handleChange} className={'form-control' + (submitted && !user.phoneno ? ' is-invalid' : '')} />
+                    {submitted && !user.phoneno &&
+                        <div className="invalid-feedback">Phone number is required</div>
                     }
                 </div>
                 <div className="form-group">

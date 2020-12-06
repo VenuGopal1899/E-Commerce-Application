@@ -16,8 +16,8 @@ function LoginPage() {
     const location = useLocation();
 
     // reset login status
-    useEffect(() => { 
-        dispatch(userActions.logout()); 
+    useEffect(() => {
+        dispatch(userActions.logout());
     }, []);
 
     function handleChange(e) {
@@ -31,14 +31,14 @@ function LoginPage() {
         setSubmitted(true);
         if (username && password) {
             // get return url from location state or default to home page
-            const { from } = location.state || { from: { pathname: "/" } };
+            const { from } = location.state || { from: { pathname: "/users" } };
             dispatch(userActions.login(username, password, from));
         }
     }
 
     return (
-        <div className="col-lg-8 offset-lg-2">
-            <h2>Login</h2>
+        <div className="login-container container">
+            <h2 className="text-center display-5">Login</h2>
             <form name="form" onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label>Username</label>
