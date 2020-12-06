@@ -26,7 +26,7 @@
     border-radius: 25px;
 }
 .header-nav-items{
-    margin-left: 780px;
+    margin-left: 250px;
 }
 .header-nav-items a{
     font-size: 27px;
@@ -37,7 +37,7 @@
 }
 .header-nav-items .logout{
     font-size: 27px;
-    margin-left: 80px;
+    margin-left: 450px;
     color: #4373e4 !important;
     padding: 4px;
     margin-top: 4px
@@ -45,6 +45,9 @@
 .header-nav-items .logout:hover{
     border: 1px solid rgb(255, 0, 0);
 }
-.users-table{
+.users-table, .products-table{
     width: 1000px;
+}
+.requests-table{
+    width: 800px;
 }

@@ -8,6 +8,8 @@ import { PrivateRoute } from '../_components';
 import { HomePage } from '../HomePage';
 import { LoginPage } from '../LoginPage';
 import { RegisterPage } from '../RegisterPage';
+import { ProductsPage } from '../ProductsPage';
+import { RequestsPage } from '../RequestsPage';
 
 function App() {
     const alert = useSelector(state => state.alert);
@@ -28,6 +30,8 @@ function App() {
             <Router history={history}>
                 <Switch>
                     <PrivateRoute path="/users" component={HomePage} />
+                    <PrivateRoute path="/products" component={ProductsPage} />
+                    <PrivateRoute path="/requests" component={RequestsPage} />
                     <Route exact path="/" component={LoginPage} />
                     <Route path="/register" component={RegisterPage} />
                     <Redirect from="*" to="/" />

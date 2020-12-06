@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { userActions } from '../_actions';
 
-function HomePage() {
+function RequestsPage() {
     const users = useSelector(state => state.users);
     const user = useSelector(state => state.authentication.user);
     const dispatch = useDispatch();
@@ -30,30 +30,26 @@ function HomePage() {
                     </ul>
                 </div>
             </nav>
-            {users.loading && <span className="display-5">Loading users...</span>}
+            {users.loading && <span className="text-center display-5">Loading requests...</span>}
             {users.error && <span className="text-danger">ERROR: {users.error}</span>}
             {users.items &&
-                <div className="users-table container">
+                <div className="requests-table container">
                     <table class="table">
                         <thead className="thead-light">
                             <tr>
                             <th scope="col">User ID</th>
-                            <th scope="col">First Name</th>
-                            <th scope="col">Last Name</th>
-                            <th scope="col">Mail</th>
-                            <th scope="col">Contact No</th>
-                            <th scope="col">Remove User</th>
+                            <th scope="col">User Name</th>
+                            <th scope="col">Approve</th>
+                            <th scope="col">Reject</th>
                             </tr>
                         </thead>
                         {users.items.map((user, index) =>
                             <tbody key={user.id}>
                                 <tr>
                                 <th scope="row">User100{user.id}</th>
-                                <td>{user.firstName}</td>
-                                <td>{user.lastName}</td>
-                                <td>{user.mail}</td>
-                                <td>{user.phoneno}</td>
-                                <td><button onClick={() => handleDeleteUser(user.id)} className="btn btn-outline-danger">Delete</button></td>
+                                <td>{user.firstName} {user.lastName}</td>
+                                <td><button className="btn btn-outline-success">Approve</button></td>
+                                <td><button className="btn btn-outline-danger">Reject</button></td>
                                 </tr>
                             </tbody>
                         )}
@@ -64,4 +60,4 @@ function HomePage() {
     );
 }
 
-export { HomePage };
+export { RequestsPage };
