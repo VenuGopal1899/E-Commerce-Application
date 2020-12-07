@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { userActions } from '../_actions';
 
-function HomePage() {
+function CartPage() {
     const users = useSelector(state => state.users);
     const user = useSelector(state => state.authentication.user);
     const dispatch = useDispatch();
@@ -18,19 +18,18 @@ function HomePage() {
     }
 
     return (
-        <div className="homepage-content">
-            <nav className="navbar navbar-expand-lg navbar-light bg-light homepage-nav">
+        <div className="homepageuser-content">
+            <nav className="navbar navbar-expand-lg navbar-light bg-light homepageuser-nav">
                 <a className="navbar-brand" href="#">Hi {user.firstName}!</a>
                 <div className="header-nav-items">
                     <ul class="navbar-nav">
-                        <li class="nav-item"><Link className="nav-link" to="/users">Users</Link></li>
-                        <li class="nav-item"><Link className="nav-link" to="/inventory">Inventory</Link></li>
-                        <li class="nav-item"><Link className="nav-link" to="/requests">Requests</Link></li>
+                        <li class="nav-item"><Link className="nav-link" to="/products">Products</Link></li>
+                        <li class="nav-item"><Link className="nav-link" to="/cart">Cart</Link></li>
                         <li class="nav-item"><Link className="nav-link logout" to="/login">Logout</Link></li>
                     </ul>
                 </div>
             </nav>
-            {users.loading && <span className="loader display-5">Loading Users...</span>}
+            {users.loading && <span className="loader display-5">Loading Cart...</span>}
             {users.error && <span className="text-danger">ERROR: {users.error}</span>}
             {users.items &&
                 <div className="users-table container">
@@ -64,4 +63,4 @@ function HomePage() {
     );
 }
 
-export { HomePage };
+export { CartPage };

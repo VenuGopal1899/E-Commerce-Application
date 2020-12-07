@@ -29,7 +29,7 @@ function HomePageUser() {
                     </ul>
                 </div>
             </nav>
-            {users.loading && <span className="display-5">Loading users...</span>}
+            {users.loading && <span className="loader display-5">Loading Products...</span>}
             {users.error && <span className="text-danger">ERROR: {users.error}</span>}
             {users.items &&
                 <div className="users-table container">

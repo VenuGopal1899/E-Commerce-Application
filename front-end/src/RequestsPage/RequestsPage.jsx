@@ -30,7 +30,7 @@ function RequestsPage() {
                     </ul>
                 </div>
             </nav>
-            {users.loading && <span className="text-center display-5">Loading requests...</span>}
+            {users.loading && <span className="loader display-5">Loading Requests...</span>}
             {users.error && <span className="text-danger">ERROR: {users.error}</span>}
             {users.items &&
                 <div className="requests-table container">

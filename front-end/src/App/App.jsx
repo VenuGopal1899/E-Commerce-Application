@@ -11,6 +11,7 @@ import { RegisterPage } from '../RegisterPage';
 import { InventoryPage } from '../InventoryPage';
 import { RequestsPage } from '../RequestsPage';
 import { HomePageUser } from '../HomePageUser';
+import { CartPage } from '../CartPage';
 
 function App() {
     const alert = useSelector(state => state.alert);
@@ -34,6 +35,7 @@ function App() {
                     <PrivateRoute path="/inventory" component={InventoryPage} />
                     <PrivateRoute path="/requests" component={RequestsPage} />
                     <PrivateRoute path="/products" component={HomePageUser} />
+                    <PrivateRoute path="/cart" component={CartPage} />
                     <Route exact path="/" component={LoginPage} />
                     <Route path="/register" component={RegisterPage} />
                     <Redirect from="*" to="/" />
