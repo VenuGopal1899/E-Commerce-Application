@@ -1,6 +1,7 @@
 // array in local storage for registered users
 let users = JSON.parse(localStorage.getItem('users')) || [];
-    
+let products = JSON.parse(localStorage.getItem('products')) || [];
+
 export function configureFakeBackend() {
     let realFetch = window.fetch;
     window.fetch = function (url, opts) {
@@ -21,6 +22,10 @@ export function configureFakeBackend() {
                         return getUsers();
                     case url.match(/\/users\/\d+$/) && method === 'DELETE':
                         return deleteUser();
+                    case url.endsWith('/products/addProduct') && method === 'POST':
+                        return addProduct();
+                    case url.endsWith('/products') && method === 'GET':
+                        return getProducts();
                     default:
                         // pass through any requests not handled above
                         return realFetch(url, opts)
@@ -44,13 +49,29 @@ export function configureFakeBackend() {
                 });
             }
 
+            function addProduct(){
+                const product = body;
+
+                product.id = products.length ? Math.max(...products.map(x => x.id)) + 1 : 1;
+                products.push(product);
+                localStorage.setItem('products', JSON.stringify(products));
+
+                return ok();
+            }
+
+            function getProducts(){
+                if (!isLoggedIn()) return unauthorized();
+
+                return ok(products);
+            }
+
             function register() {
                 const user = body;
-    
+
                 if (users.find(x => x.username === user.username)) {
                     return error(`Username  ${user.username} is already taken`);
                 }
-    
+
                 // assign user id and a few other properties then save
                 user.id = users.length ? Math.max(...users.map(x => x.id)) + 1 : 1;
                 users.push(user);
@@ -58,16 +79,16 @@ export function configureFakeBackend() {
 
                 return ok();
             }
-    
+
             function getUsers() {
                 if (!isLoggedIn()) return unauthorized();
 
                 return ok(users);
             }
-    
+
             function deleteUser() {
                 if (!isLoggedIn()) return unauthorized();
-    
+
                 users = users.filter(x => x.id !== idFromUrl());
                 localStorage.setItem('users', JSON.stringify(users));
                 return ok();
@@ -90,7 +111,7 @@ export function configureFakeBackend() {
             function isLoggedIn() {
                 return headers['Authorization'] === 'Bearer fake-jwt-token';
             }
-    
+
             function idFromUrl() {
                 const urlParts = url.split('/');
                 return parseInt(urlParts[urlParts.length - 1]);
