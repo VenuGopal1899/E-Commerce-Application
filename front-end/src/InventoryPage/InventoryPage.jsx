@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../_actions';
 import products from '../assets/products';
 
-function ProductsPage() {
+function InventoryPage() {
     const users = useSelector(state => state.users);
     const user = useSelector(state => state.authentication.user);
     const dispatch = useDispatch();
@@ -25,7 +25,7 @@ function ProductsPage() {
                 <div className="header-nav-items">
                     <ul class="navbar-nav">
                         <li class="nav-item"><Link className="nav-link" to="/users">Users</Link></li>
-                        <li class="nav-item"><Link className="nav-link" to="/products">Products</Link></li>
+                        <li class="nav-item"><Link className="nav-link" to="/inventory">Inventory</Link></li>
                         <li class="nav-item"><Link className="nav-link" to="/requests">Requests</Link></li>
                         <li class="nav-item"><Link className="nav-link logout" to="/login">Logout</Link></li>
                     </ul>
@@ -59,4 +59,4 @@ function ProductsPage() {
     );
 }
 
-export { ProductsPage };
+export { InventoryPage };

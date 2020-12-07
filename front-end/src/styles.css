@@ -16,17 +16,20 @@
     width: 500px;
     margin-top: 30px;
 }
-.homepage-content .navbar-brand{
+.homepage-content .navbar-brand, .homepageuser-content .navbar-brand{
     font-size: 40px !important;
     margin-left: 20px;
     font-weight: 500;
 }
-.homepage-nav{
+.homepage-nav, .homepageuser-nav{
     border-bottom: 1px solid black;
     border-radius: 25px;
 }
-.header-nav-items{
+.homepage-nav .header-nav-items{
     margin-left: 250px;
+}
+.homepageuser-nav .header-nav-items{
+    margin-left: 400px;
 }
 .header-nav-items a{
     font-size: 27px;
@@ -35,15 +38,22 @@
 .header-nav-items a:hover, a:active{
     color: #e94cb5 !important;
 }
-.header-nav-items .logout{
+.homepage-nav .header-nav-items .logout{
     font-size: 27px;
     margin-left: 450px;
     color: #4373e4 !important;
     padding: 4px;
     margin-top: 4px
 }
+.homepageuser-nav .header-nav-items .logout{
+    font-size: 27px;
+    margin-left:550px;
+    color: #4373e4 !important;
+    padding: 4px;
+    margin-top: 4px
+}
 .header-nav-items .logout:hover{
-    border: 1px solid rgb(255, 0, 0);
+    border: 1px solid #4373e4;
 }
 .users-table, .products-table{
     width: 1000px;
