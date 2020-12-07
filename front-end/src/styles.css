@@ -34,20 +34,21 @@
 .header-nav-items a{
     font-size: 27px;
     color: #4373e4  !important;
+    margin-right: 30px;
 }
 .header-nav-items a:hover, a:active{
     color: #e94cb5 !important;
 }
 .homepage-nav .header-nav-items .logout{
     font-size: 27px;
-    margin-left: 450px;
+    margin-left: 350px;
     color: #4373e4 !important;
     padding: 4px;
     margin-top: 4px
 }
 .homepageuser-nav .header-nav-items .logout{
     font-size: 27px;
-    margin-left:550px;
+    margin-left:490px;
     color: #4373e4 !important;
     padding: 4px;
     margin-top: 4px
