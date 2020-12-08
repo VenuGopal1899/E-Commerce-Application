@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { productActions } from '../_actions';
 
 function InventoryPage() {
-    // const products = useSelector(state => state.products);
     const user = useSelector(state => state.authentication.user);
     const dispatch = useDispatch();
 
@@ -14,7 +13,6 @@ function InventoryPage() {
     }, []);
     var prods = localStorage.getItem('products') || {};
     var products = JSON.parse(prods);
-
     function deleteProduct(id){
         dispatch(productActions.deleteProduct(id));
     }
@@ -50,7 +48,7 @@ function InventoryPage() {
                             <th scope="row">{product.id}</th>
                             <td>{product.name}</td>
                             <td>{product.price}</td>
-                            <td>{product.quantity}</td>
+                            <td>{Number(product.quantity)}</td>
                             {/* <td><button onClick={() => deleteProduct(product.id)} className="btn btn-outline-danger">Delete</button></td> */}
                             </tr>
                         </tbody>

@@ -84,16 +84,35 @@ export function configureFakeBackend() {
             function addItem(){
                 const item = body;
 
+                for(var i=0; i<products.length; i++){
+                    if(products[i].id === item.productID){
+                        products[i].quantity = products[i].quantity - Number(item.productQuantity);
+                    }
+                }
+
                 item.id = items.length ? Math.max(...items.map(x => x.id)) + 1 : 1;
                 items.push(item);
+
+                localStorage.setItem('products', JSON.stringify(products));
                 localStorage.setItem('items', JSON.stringify(items));
                 return ok();
             }
 
             function deleteItem(){
                 if (!isLoggedIn()) return unauthorized();
+
                 const id = idFromUrl();
+
+                var deletedItem = items.filter(x => x.productID === id);
                 items = items.filter(x => x.productID !== id);
+
+                for(var i=0; i<products.length; i++){
+                    if(products[i].id === id){
+                        products[i].quantity = products[i].quantity + Number(deletedItem.productQuantity);
+                    }
+                }
+
+                localStorage.setItem('products', JSON.stringify(products));
                 localStorage.setItem('items', JSON.stringify(items));
                 return ok();
             }
