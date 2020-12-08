@@ -64,7 +64,7 @@ function HomePageUser() {
                             <th scope="row">{product.id}</th>
                             <td>{product.name}</td>
                             <td>{product.price}</td>
-                            <td><input type="number" name="requestedProductQuantity" onChange={handleChange}/></td>
+                            <td><input type="number" name="requestedProductQuantity" min="0" onChange={handleChange}/></td>
                             <td><button onClick={() => addItemToCart(product)} className="btn btn-outline-primary" disabled={!item.requestedProductQuantity || product.quantity < item.requestedProductQuantity}>Add to Cart</button></td>
                             <td><button onClick={() => sendRequest(product)} className="btn btn-outline-success" disabled={product.quantity > item.requestedProductQuantity}>Notify Admin</button></td>
                             </tr>
