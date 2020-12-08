@@ -1,6 +1,7 @@
-// array in local storage for registered users
+// array in local storage for registered users, products, items
 let users = JSON.parse(localStorage.getItem('users')) || [];
 let products = JSON.parse(localStorage.getItem('products')) || [];
+let items = JSON.parse(localStorage.getItem('items')) || [];
 
 export function configureFakeBackend() {
     let realFetch = window.fetch;
@@ -28,6 +29,10 @@ export function configureFakeBackend() {
                         return getProducts();
                     case url.match(/\/products\/\d+$/) && method === 'DELETE':
                         return deleteProduct();
+                    case url.endsWith('/cart/addItem') && method === 'POST':
+                        return addItem();
+                    case url.match(/\/cart\/\d+$/) && method === 'DELETE':
+                            return deleteItem();
                     default:
                         // pass through any requests not handled above
                         return realFetch(url, opts)
@@ -62,9 +67,10 @@ export function configureFakeBackend() {
             }
 
             function deleteProduct(){
+                const productID = body;
                 if (!isLoggedIn()) return unauthorized();
 
-                products = products.filter(x => x.id !== idFromUrl());
+                products = products.filter(x => x.id !== productID);
                 localStorage.setItem('products', JSON.stringify(products));
                 return ok();
             }
@@ -73,6 +79,23 @@ export function configureFakeBackend() {
                 if (!isLoggedIn()) return unauthorized();
 
                 return ok(products);
+            }
+
+            function addItem(){
+                const item = body;
+
+                item.id = items.length ? Math.max(...items.map(x => x.id)) + 1 : 1;
+                items.push(item);
+                localStorage.setItem('items', JSON.stringify(items));
+                return ok();
+            }
+
+            function deleteItem(){
+                if (!isLoggedIn()) return unauthorized();
+                const id = idFromUrl();
+                items = items.filter(x => x.productID !== id);
+                localStorage.setItem('items', JSON.stringify(items));
+                return ok();
             }
 
             function register() {

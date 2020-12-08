@@ -22,11 +22,11 @@ function RequestsPage() {
             <nav className="navbar navbar-expand-lg navbar-light bg-light homepage-nav">
                 <a className="navbar-brand" href="#">Hi {user.firstName}!</a>
                 <div className="header-nav-items">
-                    <ul class="navbar-nav">
-                        <li class="nav-item"><Link className="nav-link" to="/users">Users</Link></li>
-                        <li class="nav-item"><Link className="nav-link" to="/inventory">Inventory</Link></li>
-                        <li class="nav-item"><Link className="nav-link" to="/requests">Requests</Link></li>
-                        <li class="nav-item"><Link className="nav-link logout" to="/login">Logout</Link></li>
+                    <ul className="navbar-nav">
+                        <li className="nav-item"><Link className="nav-link" to="/users">Users</Link></li>
+                        <li className="nav-item"><Link className="nav-link" to="/inventory">Inventory</Link></li>
+                        <li className="nav-item"><Link className="nav-link" to="/requests">Requests</Link></li>
+                        <li className="nav-item"><Link className="nav-link logout" to="/login">Logout</Link></li>
                     </ul>
                 </div>
             </nav>
@@ -34,7 +34,7 @@ function RequestsPage() {
             {users.error && <span className="text-danger">ERROR: {users.error}</span>}
             {users.items &&
                 <div className="requests-table container">
-                    <table class="table">
+                    <table className="table">
                         <thead className="thead-light">
                             <tr>
                             <th scope="col">User ID</th>

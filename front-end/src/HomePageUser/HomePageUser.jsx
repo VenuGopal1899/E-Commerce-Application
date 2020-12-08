@@ -3,12 +3,20 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { productActions } from '../_actions';
-// import products from '../assets/products';
+import { cartActions } from '../_actions';
 
 function HomePageUser() {
-    const [item, setItem] = useState({
+    const [i, setItem] = useState({
         requestedProductQuantity: ''
     });
+
+    const item = {
+        productID: '',
+        productName: '',
+        productPrice: '',
+        productQuantity: ''
+    };
+
     const dispatch = useDispatch();
     const user = useSelector(state => state.authentication.user);
 
@@ -25,9 +33,11 @@ function HomePageUser() {
     }
 
     function addItemToCart(p){
-        console.log('Product added to cart');
-        console.log(item.requestedProductQuantity);
-        console.log(p);
+        item.productID = p.id;
+        item.productName = p.name;
+        item.productPrice = p.price;
+        item.productQuantity = i.requestedProductQuantity;
+        dispatch(cartActions.addItem(item));
     }
 
     function sendRequest(p){
@@ -66,8 +76,8 @@ function HomePageUser() {
                             <td>{product.name}</td>
                             <td>{product.price}</td>
                             <td><input type="number" name="requestedProductQuantity" min="0" onChange={handleChange}/></td>
-                            <td><button onClick={() => addItemToCart(product)} className="btn btn-outline-primary" disabled={!item.requestedProductQuantity || item.requestedProductQuantity <= 0 || product.quantity < item.requestedProductQuantity}>Add to Cart</button></td>
-                            <td><button onClick={() => sendRequest(product)} className="btn btn-outline-success" disabled={product.quantity > item.requestedProductQuantity}>Notify Admin</button></td>
+                            <td><button onClick={() => addItemToCart(product)} className="btn btn-outline-primary" disabled={!i.requestedProductQuantity || i.requestedProductQuantity <= 0 || product.quantity < i.requestedProductQuantity}>Add to Cart</button></td>
+                            <td><button onClick={() => sendRequest(product)} className="btn btn-outline-success" disabled={product.quantity > i.requestedProductQuantity}>Notify Admin</button></td>
                             </tr>
                         </tbody>
                     )}

@@ -2,18 +2,21 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { productActions } from '../_actions';
-import products from '../assets/products';
+import { cartActions } from '../_actions';
 
 function CartPage() {
     const dispatch = useDispatch();
     const user = useSelector(state => state.authentication.user);
 
     useEffect(() => {
-        dispatch(productActions.getAll());
+        dispatch(cartActions.getAll());
     }, []);
-    const prods = localStorage.getItem('products') || {};
-    const products = JSON.parse(prods);
+    const its = localStorage.getItem('items') || {};
+    const items = JSON.parse(its);
+
+    function handleRemoveItem(id) {
+        dispatch(cartActions.removeItem(id));
+    }
 
     return (
         <div className="homepageuser-content">
@@ -31,17 +34,21 @@ function CartPage() {
                 <table className="table">
                     <thead className="thead-light">
                         <tr>
-                        <th scope="col">Product ID</th>
+                        <th scope="col">Item No.</th>
                         <th scope="col">Product Name</th>
+                        <th scope="col">Quantity</th>
                         <th scope="col">Price</th>
+                        <th scope="col">Remove from Cart</th>
                         </tr>
                     </thead>
-                    {products.map((product, index) =>
+                    {items.map((item, index) =>
                         <tbody key={index}>
                             <tr>
-                            <th scope="row">{product.id}</th>
-                            <td>{product.name}</td>
-                            <td>{product.price}</td>
+                            <th scope="row">{index+1}</th>
+                            <td>{item.productName}</td>
+                            <td>{item.productQuantity}</td>
+                            <td>{item.productPrice}</td>
+                            <td><button onClick={() => handleRemoveItem(item.productID)} className="btn btn-outline-danger">Remove</button></td>
                             </tr>
                         </tbody>
                     )}

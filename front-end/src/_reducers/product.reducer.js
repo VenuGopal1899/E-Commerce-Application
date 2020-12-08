@@ -10,7 +10,7 @@ export function products(state = {}, action) {
             return {
                 items: action.products
             };
-        case productsConstants.GETALL_FAILURE:
+        case productConstants.GETALL_FAILURE:
             return {
                 error: action.error
             };
