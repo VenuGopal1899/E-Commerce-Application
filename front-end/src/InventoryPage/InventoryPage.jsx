@@ -2,20 +2,21 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { userActions } from '../_actions';
-import products from '../assets/products';
+import { productActions } from '../_actions';
 
 function InventoryPage() {
-    const users = useSelector(state => state.users);
+    // const products = useSelector(state => state.products);
     const user = useSelector(state => state.authentication.user);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(userActions.getAll());
+        dispatch(productActions.getAll());
     }, []);
+    var prods = localStorage.getItem('products') || {};
+    var products = JSON.parse(prods);
 
-    function handleDeleteUser(id) {
-        dispatch(userActions.delete(id));
+    function deleteProduct(id){
+        dispatch(productActions.deleteProduct(id));
     }
 
     return (
@@ -32,7 +33,7 @@ function InventoryPage() {
                 </div>
             </nav>
 
-            <div className="products-table container">
+            <div className="inventory-table container">
                 <table class="table">
                     <thead className="thead-light">
                         <tr>
@@ -40,6 +41,7 @@ function InventoryPage() {
                         <th scope="col">Product Name</th>
                         <th scope="col">Price</th>
                         <th scope="col">Quantity Remaining</th>
+                        {/* <th scope="col">Delete Product</th> */}
                         </tr>
                     </thead>
                     {products.map((product, index) =>
@@ -49,6 +51,7 @@ function InventoryPage() {
                             <td>{product.name}</td>
                             <td>{product.price}</td>
                             <td>{product.quantity}</td>
+                            {/* <td><button onClick={() => deleteProduct(product.id)} className="btn btn-outline-danger">Delete</button></td> */}
                             </tr>
                         </tbody>
                     )}

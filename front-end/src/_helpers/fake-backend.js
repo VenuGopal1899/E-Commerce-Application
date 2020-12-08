@@ -26,6 +26,8 @@ export function configureFakeBackend() {
                         return addProduct();
                     case url.endsWith('/products') && method === 'GET':
                         return getProducts();
+                    case url.match(/\/products\/\d+$/) && method === 'DELETE':
+                        return deleteProduct();
                     default:
                         // pass through any requests not handled above
                         return realFetch(url, opts)
@@ -56,6 +58,14 @@ export function configureFakeBackend() {
                 products.push(product);
                 localStorage.setItem('products', JSON.stringify(products));
 
+                return ok();
+            }
+
+            function deleteProduct(){
+                if (!isLoggedIn()) return unauthorized();
+
+                products = products.filter(x => x.id !== idFromUrl());
+                localStorage.setItem('products', JSON.stringify(products));
                 return ok();
             }
 

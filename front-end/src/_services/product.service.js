@@ -5,7 +5,8 @@ export const productService = {
     addProduct,
     getAll,
     getById,
-    update
+    update,
+    deleteProduct: _delete
 };
 
 function addProduct(product){
@@ -43,6 +44,15 @@ function update(product) {
     };
 
     return fetch(`${config.apiUrl}/products/${product.id}`, requestOptions).then(handleResponse);;
+}
+
+function _delete(id) {
+    const requestOptions = {
+        method: 'DELETE',
+        headers: authHeader()
+    };
+
+    return fetch(`${config.apiUrl}/products/${id}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {

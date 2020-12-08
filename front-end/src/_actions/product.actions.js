@@ -5,6 +5,7 @@ import { history } from '../_helpers';
 
 export const productActions = {
     addProduct,
+    deleteProduct: _delete,
     getAll
 };
 
@@ -28,6 +29,22 @@ function addProduct(product) {
     function request(product) { return { type: productConstants.ADDPRODUCT_REQUEST, product } }
     function success(product) { return { type: productConstants.ADDPRODUCT_SUCCESS, product } }
     function failure(error) { return { type: productConstants.ADDPRODUCT_FAILURE, error } }
+}
+
+function _delete(id) {
+    return dispatch => {
+        dispatch(request(id));
+
+        productService.deleteProduct(id)
+            .then(
+                product => dispatch(success(id)),
+                error => dispatch(failure(id, error.toString()))
+            );
+    };
+
+    function request(id) { return { type: productConstants.DELETEPRODUCT_REQUEST, id } }
+    function success(id) { return { type: productConstants.DELETEPRODUCT_SUCCESS, id } }
+    function failure(id, error) { return { type: productConstants.DELETEPRODUCT_FAILURE, id, error } }
 }
 
 function getAll() {
