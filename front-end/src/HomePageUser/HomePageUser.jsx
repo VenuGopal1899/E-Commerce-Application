@@ -26,6 +26,7 @@ function HomePageUser() {
 
     function addItemToCart(p){
         console.log('Product added to cart');
+        console.log(item.requestedProductQuantity);
         console.log(p);
     }
 
@@ -65,7 +66,7 @@ function HomePageUser() {
                             <td>{product.name}</td>
                             <td>{product.price}</td>
                             <td><input type="number" name="requestedProductQuantity" min="0" onChange={handleChange}/></td>
-                            <td><button onClick={() => addItemToCart(product)} className="btn btn-outline-primary" disabled={!item.requestedProductQuantity || product.quantity < item.requestedProductQuantity}>Add to Cart</button></td>
+                            <td><button onClick={() => addItemToCart(product)} className="btn btn-outline-primary" disabled={!item.requestedProductQuantity || item.requestedProductQuantity <= 0 || product.quantity < item.requestedProductQuantity}>Add to Cart</button></td>
                             <td><button onClick={() => sendRequest(product)} className="btn btn-outline-success" disabled={product.quantity > item.requestedProductQuantity}>Notify Admin</button></td>
                             </tr>
                         </tbody>
