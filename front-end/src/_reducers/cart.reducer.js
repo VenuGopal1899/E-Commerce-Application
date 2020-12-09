@@ -34,7 +34,6 @@ export function cart(state = {}, action) {
                 items: state.items.map(item => {
                     if (item.id !== action.id) {
                         const { adding, ...itemCopy } = item;
-                        // return copy of user with 'deleteError:[error]' property
                         return { ...itemCopy, addError: action.error };
                     }
                     return item;

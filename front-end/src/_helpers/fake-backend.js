@@ -2,6 +2,7 @@
 let users = JSON.parse(localStorage.getItem('users')) || [];
 let products = JSON.parse(localStorage.getItem('products')) || [];
 let items = JSON.parse(localStorage.getItem('items')) || [];
+let requests = JSON.parse(localStorage.getItem('requests')) || [];
 
 export function configureFakeBackend() {
     let realFetch = window.fetch;
@@ -29,10 +30,16 @@ export function configureFakeBackend() {
                         return getProducts();
                     case url.match(/\/products\/\d+$/) && method === 'DELETE':
                         return deleteProduct();
+                    case url.endsWith('/cart') && method === 'GET':
+                        return getItems();
                     case url.endsWith('/cart/addItem') && method === 'POST':
                         return addItem();
                     case url.match(/\/cart\/\d+$/) && method === 'DELETE':
                             return deleteItem();
+                    case url.endsWith('/requests') && method === 'GET':
+                        return getRequests();
+                    case url.endsWith('/requests/addRequest') && method === 'POST':
+                        return addRequest();
                     default:
                         // pass through any requests not handled above
                         return realFetch(url, opts)
@@ -115,6 +122,29 @@ export function configureFakeBackend() {
                 localStorage.setItem('products', JSON.stringify(products));
                 localStorage.setItem('items', JSON.stringify(items));
                 return ok();
+            }
+
+            function getItems(){
+                if (!isLoggedIn()) return unauthorized();
+
+                return ok(items);
+            }
+
+            function addRequest(){
+                const request = body;
+
+                request.id = requests.length ? Math.max(...requests.map(x => x.id)) + 1 : 1;
+                requests.push(request);
+
+                localStorage.setItem('requests', JSON.stringify(requests));
+                return ok();
+            }
+
+
+            function getRequests(){
+                if (!isLoggedIn()) return unauthorized();
+
+                return ok(requests);
             }
 
             function register() {

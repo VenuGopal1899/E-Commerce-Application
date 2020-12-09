@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { productActions } from '../_actions';
-import { cartActions } from '../_actions';
+import { productActions, requestActions, cartActions } from '../_actions';
 
 function HomePageUser() {
     const [i, setItem] = useState({
@@ -16,6 +15,13 @@ function HomePageUser() {
         productPrice: '',
         productQuantity: ''
     };
+
+    const request = {
+        userName: '',
+        productID: '',
+        productName: '',
+        productQuantity: ''
+    }
 
     const dispatch = useDispatch();
     const user = useSelector(state => state.authentication.user);
@@ -41,8 +47,12 @@ function HomePageUser() {
     }
 
     function sendRequest(p){
-        console.log('Request sent to admin');
-        console.log(p);
+        request.userName = user.username;
+        request.productID = p.id;
+        request.productName = p.name;
+        request.productQuantity = i.requestedProductQuantity;
+        dispatch(requestActions.addRequest(request));
+        console.log('request dispatched');
     }
 
     return (

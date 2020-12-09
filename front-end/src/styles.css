@@ -64,16 +64,11 @@
 .header-nav-items .logout:hover{
     color: #e94cb5 !important;
 }
-.users-table, .products-table{
+.users-table, .products-table, .requests-table{
     width: 1000px;
-    border: 2px solid #dee2e6;
 }
 .inventory-table{
     width: 600px;
-    border: 2px solid #dee2e6;
-}
-.requests-table{
-    width: 800px;
 }
 .loader{
     color: #4373e4;
