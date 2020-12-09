@@ -89,6 +89,7 @@ export function configureFakeBackend() {
             function getProducts(){
                 if (!isLoggedIn()) return unauthorized();
                 // Re-fill Total Stock
+
                 // var sum = 20;
 
                 // for(var i=0; i<products.length; i++){
