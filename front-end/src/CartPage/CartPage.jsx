@@ -19,6 +19,10 @@ function CartPage() {
         dispatch(cartActions.removeItem(id));
     }
 
+    function checkout(){
+        dispatch(cartActions.checkout());
+    }
+
     var totalBill = 0;
     for(var i=0; i<items.length; i++){
         totalBill = totalBill + (Number(items[i].productQuantity)*items[i].productPrice);
@@ -62,7 +66,7 @@ function CartPage() {
                     </table>
                     <div className='total-bill container text-center'>
                         <span className='display-5'>Your total bill is : {totalBill}</span>
-                        <button className="btn btn-outline-success btn-checkout">Checkout</button>
+                        <button onClick={() => checkout()} className="btn btn-outline-success btn-checkout">Checkout</button>
                     </div>
                 </div>
                 :   <span className="display-4 empty-requests">Wow!! So Clean and Empty XD</span>

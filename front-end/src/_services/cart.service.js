@@ -4,7 +4,8 @@ import { authHeader } from '../_helpers';
 export const cartService = {
     addItem,
     removeItem,
-    getAll
+    getAll,
+    checkout
 };
 
 function addItem(item){
@@ -32,6 +33,15 @@ function removeItem(id) {
     };
 
     return fetch(`${config.apiUrl}/cart/${id}`, requestOptions).then(handleResponse);
+}
+
+function checkout(){
+    const requestOptions = {
+        method: 'DELETE',
+        headers: authHeader()
+    }
+
+    return fetch(`${config.apiUrl}/cart`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {

@@ -32,7 +32,6 @@ function HomePageUser() {
 
     const prods = localStorage.getItem('products') || {};
     const products = JSON.parse(prods);
-
     function handleChange(e) {
         const { name, value } = e.target;
         setItem(i => ({ ...i, [name]: value }));
@@ -85,8 +84,8 @@ function HomePageUser() {
                             <td>{product.name}</td>
                             <td>{product.price}</td>
                             <td><input type="number" name="requestedProductQuantity" min="0" onChange={handleChange}/></td>
-                            <td><button onClick={() => addItemToCart(product)} className="btn btn-outline-primary" disabled={!i.requestedProductQuantity || i.requestedProductQuantity <= 0 || product.quantity < i.requestedProductQuantity}>Add to Cart</button></td>
-                            <td><button onClick={() => sendRequest(product)} className="btn btn-outline-success" disabled={!i.requestedProductQuantity || product.quantity > i.requestedProductQuantity}>Notify Admin</button></td>
+                            <td><button onClick={() => addItemToCart(product)} className="btn btn-outline-primary" disabled={(!i.requestedProductQuantity) || (i.requestedProductQuantity <= 0) || (product.quantity<i.requestedProductQuantity)}>Add to Cart</button></td>
+                            <td><button onClick={() => sendRequest(product)} className="btn btn-outline-success" disabled={(!i.requestedProductQuantity) || (product.quantity>=i.requestedProductQuantity)}>Notify Admin</button></td>
                             </tr>
                         </tbody>
                     )}

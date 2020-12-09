@@ -64,6 +64,21 @@ export function cart(state = {}, action) {
                 })
             };
 
+        case cartConstants.CHECKOUT_REQUEST:
+            return {
+                items: state.items
+            }
+
+        case cartConstants.CHECKOUT_SUCCESS:
+            return {
+                items: {}
+            }
+
+        case cartConstants.CHECKOUT_FAILURE:
+            return {
+                items: state.items
+            }
+
         default:
             return state
     }

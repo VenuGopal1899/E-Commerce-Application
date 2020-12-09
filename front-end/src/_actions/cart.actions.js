@@ -5,7 +5,8 @@ import { alertActions } from './';
 export const cartActions = {
     addItem,
     removeItem,
-    getAll
+    getAll,
+    checkout
 };
 
 function addItem(item) {
@@ -59,4 +60,20 @@ function removeItem(id) {
     function request(id) { return { type: cartConstants.DELETEITEM_REQUEST, id } }
     function success(id) { return { type: cartConstants.DELETEITEM_SUCCESS, id } }
     function failure(id, error) { return { type: cartConstants.DELETEITEM_FAILURE, id, error } }
+}
+
+function checkout(){
+    return dispatch => {
+        dispatch(request());
+
+        cartService.checkout()
+            .then(
+                items => dispatch(success(items)),
+                error => dispatch(failure(error.toString()))
+            );
+    };
+
+    function request() { return { type: cartConstants.CHECKOUT_REQUEST } }
+    function success(items) { return { type: cartConstants.CHECKOUT_SUCCESS, items } }
+    function failure(error) { return { type: cartConstants.CHECKOUT_FAILURE, error } }
 }

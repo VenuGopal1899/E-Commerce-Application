@@ -36,6 +36,8 @@ export function configureFakeBackend() {
                         return addItem();
                     case url.match(/\/cart\/\d+$/) && method === 'DELETE':
                             return deleteItem();
+                    case url.match('/cart') && method === 'DELETE':
+                        return checkout();
                     case url.endsWith('/requests') && method === 'GET':
                         return getRequests();
                     case url.endsWith('/requests/addRequest') && method === 'POST':
@@ -90,24 +92,23 @@ export function configureFakeBackend() {
                 if (!isLoggedIn()) return unauthorized();
                 // Re-fill Total Stock
 
-                // var sum = 20;
+                // var quantity = 50;
 
                 // for(var i=0; i<products.length; i++){
-                //     products[i].quantity = sum.toString();
+                //     products[i].quantity = quantity.toString();
                 // }
                 // localStorage.setItem('products', JSON.stringify(products));
+
                 return ok(products);
             }
 
             function addItem(){
                 const item = body;
-
                 for(var i=0; i<products.length; i++){
                     if(products[i].id === item.productID){
                         products[i].quantity = products[i].quantity - Number(item.productQuantity);
                     }
                 }
-
                 item.id = items.length ? Math.max(...items.map(x => x.id)) + 1 : 1;
                 items.push(item);
 
@@ -139,6 +140,13 @@ export function configureFakeBackend() {
                 if (!isLoggedIn()) return unauthorized();
 
                 return ok(items);
+            }
+
+            function checkout(){
+                if (!isLoggedIn()) return unauthorized();
+                items = [];
+                localStorage.setItem('items', JSON.stringify(items));
+                return ok();
             }
 
             function addRequest(){
@@ -204,12 +212,14 @@ export function configureFakeBackend() {
             function getUsers() {
                 if (!isLoggedIn()) return unauthorized();
                 // Re-fill Total Stock
-                // var sum = 20;
+
+                // var sum = 50;
 
                 // for(var i=0; i<products.length; i++){
                 //     products[i].quantity = sum.toString();
                 // }
                 // localStorage.setItem('products', JSON.stringify(products));
+
                 return ok(users);
             }
 
