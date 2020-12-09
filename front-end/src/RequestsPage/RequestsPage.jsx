@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { requestActions, userActions } from '../_actions';
 
 function RequestsPage() {
-    const users = useSelector(state => state.users);
+    const reqs = useSelector(state => state.requests);
     const user = useSelector(state => state.authentication.user);
     const dispatch = useDispatch();
 
@@ -13,8 +13,7 @@ function RequestsPage() {
         dispatch(requestActions.getAll());
     }, []);
 
-    var reqs = localStorage.getItem('requests') || [];
-    var requests = JSON.parse(reqs);
+    const requests = reqs.items ? reqs.items : [];
 
     function approveRequest(req){
         dispatch(requestActions.approveRequest(req.id));

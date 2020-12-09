@@ -5,15 +5,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { cartActions } from '../_actions';
 
 function CartPage() {
-    const dispatch = useDispatch();
+    const cart = useSelector(state => state.cart);
     const user = useSelector(state => state.authentication.user);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(cartActions.getAll());
     }, []);
 
-    const its = localStorage.getItem('items') || {};
-    const items = JSON.parse(its);
+    const items = cart.items ? cart.items : [];
 
     function handleRemoveItem(id) {
         dispatch(cartActions.removeItem(id));
