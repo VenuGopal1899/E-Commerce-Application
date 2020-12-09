@@ -1,6 +1,7 @@
 import { cartConstants } from '../_constants';
 import { cartService } from '../_services';
 import { alertActions } from './';
+import { history } from '../_helpers';
 
 export const cartActions = {
     addItem,
@@ -68,7 +69,10 @@ function checkout(){
 
         cartService.checkout()
             .then(
-                items => dispatch(success(items)),
+                items => {
+                    dispatch(success(items)),
+                    history.push('/products')
+                },
                 error => dispatch(failure(error.toString()))
             );
     };
