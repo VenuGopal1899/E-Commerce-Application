@@ -16,6 +16,14 @@ function RequestsPage() {
     var reqs = localStorage.getItem('requests') || [];
     var requests = JSON.parse(reqs);
 
+    function approveRequest(req){
+        dispatch(requestActions.approveRequest(req.id));
+    }
+
+    function rejectRequest(req){
+        dispatch(requestActions.rejectRequest(req.id));
+    }
+
     return (
         <div className="homepage-content">
             <nav className="navbar navbar-expand-lg navbar-light bg-light homepage-nav">
@@ -53,8 +61,8 @@ function RequestsPage() {
                                 <td>{request.productID}</td>
                                 <td>{request.productName}</td>
                                 <td>{request.productQuantity}</td>
-                                <td><button className="btn btn-outline-success">Approve</button></td>
-                                <td><button className="btn btn-outline-danger">Reject</button></td>
+                                <td><button onClick={ () => approveRequest(request)} className="btn btn-outline-success">Approve</button></td>
+                                <td><button onClick={ () => rejectRequest(request)} className="btn btn-outline-danger">Reject</button></td>
                                 </tr>
                             </tbody>
                         )}

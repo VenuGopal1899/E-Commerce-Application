@@ -40,6 +40,10 @@ export function configureFakeBackend() {
                         return getRequests();
                     case url.endsWith('/requests/addRequest') && method === 'POST':
                         return addRequest();
+                    case url.match(/\/approve\/\d+$/) && method === 'DELETE':
+                        return approveRequest();
+                    case url.match(/\/reject\/\d+$/) && method === 'DELETE':
+                        return rejectRequest();
                     default:
                         // pass through any requests not handled above
                         return realFetch(url, opts)
@@ -84,7 +88,13 @@ export function configureFakeBackend() {
 
             function getProducts(){
                 if (!isLoggedIn()) return unauthorized();
+                // Re-fill Total Stock
+                // var sum = 20;
 
+                // for(var i=0; i<products.length; i++){
+                //     products[i].quantity = sum.toString();
+                // }
+                // localStorage.setItem('products', JSON.stringify(products));
                 return ok(products);
             }
 
@@ -109,13 +119,13 @@ export function configureFakeBackend() {
                 if (!isLoggedIn()) return unauthorized();
 
                 const id = idFromUrl();
-
+                var sum = 0;
                 var deletedItem = items.filter(x => x.productID === id);
                 items = items.filter(x => x.productID !== id);
-
                 for(var i=0; i<products.length; i++){
                     if(products[i].id === id){
-                        products[i].quantity = products[i].quantity + Number(deletedItem.productQuantity);
+                        sum = Number(products[i].quantity) + Number(deletedItem[0].productQuantity);
+                        products[i].quantity = sum;
                     }
                 }
 
@@ -140,11 +150,39 @@ export function configureFakeBackend() {
                 return ok();
             }
 
-
             function getRequests(){
                 if (!isLoggedIn()) return unauthorized();
 
                 return ok(requests);
+            }
+
+            function approveRequest(){
+                if (!isLoggedIn()) return unauthorized();
+                const id = idFromUrl();
+                var sum = 0;
+                var approvedrequest = requests.filter(x => x.id === id);
+                for(var i=0; i<products.length; i++){
+                    if(products[i].id === approvedrequest[0].productID){
+                        sum =  Number(products[i].quantity) + 2*Number(approvedrequest[0].productQuantity);
+                        products[i].quantity = sum.toString();
+                    }
+                }
+
+                requests = requests.filter(x => x.id !== id);
+
+                localStorage.setItem('products', JSON.stringify(products));
+                localStorage.setItem('requests', JSON.stringify(requests));
+
+                return ok();
+            }
+
+            function rejectRequest(){
+                if (!isLoggedIn()) return unauthorized();
+                const id = idFromUrl();
+                requests = requests.filter(x => x.id !== id);
+
+                localStorage.setItem('requests', JSON.stringify(requests));
+                return ok();
             }
 
             function register() {
@@ -164,7 +202,13 @@ export function configureFakeBackend() {
 
             function getUsers() {
                 if (!isLoggedIn()) return unauthorized();
+                // Re-fill Total Stock
+                // var sum = 20;
 
+                // for(var i=0; i<products.length; i++){
+                //     products[i].quantity = sum.toString();
+                // }
+                // localStorage.setItem('products', JSON.stringify(products));
                 return ok(users);
             }
 

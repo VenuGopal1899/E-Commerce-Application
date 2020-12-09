@@ -40,57 +40,61 @@ export function requests(state = {}, action) {
                 })
             };
 
-        // case requestConstants.APPROVEREQUEST_REQUEST:
-        //     return {
-        //         ...state,
-        //         items: state.items.map(request =>
-        //             request.id === action.id
-        //                 ? { ...request, deleting: true }
-        //                 : request
-        //         )
-        //     };
+        case requestConstants.APPROVEREQUEST_REQUEST:
+            return {
+                ...state,
+                items: state.items.map(request =>
+                    request.id === action.id
+                        ? { ...request, deleting: true }
+                        : request
+                )
+            };
 
-        // case requestConstants.APPROVEREQUEST_SUCCESS:
-        //     return {
-        //         items: state.items.filter(request => request.id !== action.id)
-        //     };
+        case requestConstants.APPROVEREQUEST_SUCCESS:
+            return {
+                items: state.items.filter(request => request.id !== action.id)
+            };
 
-        // case requestConstants.APPROVEREQUEST_FAILURE:
-        //     return {
-        //         ...state,
-        //         items: state.items.map(request => {
-        //             if (request.id === action.id) {
-        //                 const { deleting, ...requestCopy } = request;
-        //                 return { ...requestCopy, deleteError: action.error };
-        //             }
+        case requestConstants.APPROVEREQUEST_FAILURE:
+            return {
+                ...state,
+                items: state.items.map(request => {
+                    if (request.id === action.id) {
+                        const { deleting, ...requestCopy } = request;
+                        return { ...requestCopy, deleteError: action.error };
+                    }
 
-        //             return request;
-        //         })
-        //     };
+                    return request;
+                })
+            };
 
-        // case requestConstants.REJECTREQUEST_REQUEST:
-        //     return {
-        //         ...state,
-        //         items: state.items.map(request => request.id === action.id ? { ...request, deleting: true } : request)
-        //     };
+        case requestConstants.REJECTREQUEST_REQUEST:
+            return {
+                ...state,
+                items: state.items.map(request =>
+                    request.id === action.id
+                        ? { ...request, deleting: true }
+                        : request
+                )
+            };
 
-        // case requestConstants.REJECTREQUEST_SUCCESS:
-        //     return {
-        //         items: state.items.filter(request => request.id !== action.id)
-        //     };
+        case requestConstants.REJECTREQUEST_SUCCESS:
+            return {
+                items: state.items.filter(request => request.id !== action.id)
+            };
 
-        // case requestConstants.REJECTREQUEST_FAILURE:
-        //     return {
-        //         ...state,
-        //         items: state.items.map(r => {
-        //             if (r.id === action.id) {
-        //                 const { deleting, ...requestCopy } = r;
-        //                 return { ...requestCopy, deleteError: action.error };
-        //             }
+        case requestConstants.REJECTREQUEST_FAILURE:
+            return {
+                ...state,
+                items: state.items.map(request => {
+                    if (request.id === action.id) {
+                        const { deleting, ...requestCopy } = request;
+                        return { ...requestCopy, deleteError: action.error };
+                    }
 
-        //             return r;
-        //         })
-        //     };
+                    return request;
+                })
+            };
 
         default:
             return state

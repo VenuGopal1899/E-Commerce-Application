@@ -52,7 +52,6 @@ function HomePageUser() {
         request.productName = p.name;
         request.productQuantity = i.requestedProductQuantity;
         dispatch(requestActions.addRequest(request));
-        console.log('request dispatched');
     }
 
     return (
@@ -87,7 +86,7 @@ function HomePageUser() {
                             <td>{product.price}</td>
                             <td><input type="number" name="requestedProductQuantity" min="0" onChange={handleChange}/></td>
                             <td><button onClick={() => addItemToCart(product)} className="btn btn-outline-primary" disabled={!i.requestedProductQuantity || i.requestedProductQuantity <= 0 || product.quantity < i.requestedProductQuantity}>Add to Cart</button></td>
-                            <td><button onClick={() => sendRequest(product)} className="btn btn-outline-success" disabled={product.quantity > i.requestedProductQuantity}>Notify Admin</button></td>
+                            <td><button onClick={() => sendRequest(product)} className="btn btn-outline-success" disabled={!i.requestedProductQuantity || product.quantity > i.requestedProductQuantity}>Notify Admin</button></td>
                             </tr>
                         </tbody>
                     )}

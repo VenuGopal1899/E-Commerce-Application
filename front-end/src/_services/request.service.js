@@ -4,8 +4,8 @@ import { authHeader } from '../_helpers';
 export const requestService = {
     addRequest,
     getAll,
-    // approveRequest,
-    // rejectRequest
+    approveRequest,
+    rejectRequest
 };
 
 function addRequest(r){
@@ -24,6 +24,24 @@ function getAll() {
     };
 
     return fetch(`${config.apiUrl}/requests`, requestOptions).then(handleResponse);
+}
+
+function approveRequest(id) {
+    const requestOptions = {
+        method: 'DELETE',
+        headers: authHeader()
+    };
+
+    return fetch(`${config.apiUrl}/requests/approve/${id}`, requestOptions).then(handleResponse);
+}
+
+function rejectRequest(id) {
+    const requestOptions = {
+        method: 'DELETE',
+        headers: authHeader()
+    };
+
+    return fetch(`${config.apiUrl}/requests/reject/${id}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {

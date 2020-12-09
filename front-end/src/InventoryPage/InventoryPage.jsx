@@ -48,7 +48,7 @@ function InventoryPage() {
                             <th scope="row">{product.id}</th>
                             <td>{product.name}</td>
                             <td>{product.price}</td>
-                            <td>{Number(product.quantity)}</td>
+                            <td>{product.quantity}</td>
                             {/* <td><button onClick={() => deleteProduct(product.id)} className="btn btn-outline-danger">Delete</button></td> */}
                             </tr>
                         </tbody>
