@@ -37,9 +37,7 @@ function RequestsPage() {
                     </ul>
                 </div>
             </nav>
-            {requests.loading && <span className="loader display-5">Loading Requests...</span>}
-            {requests.error && <span className="text-danger">ERROR: {users.error}</span>}
-            {requests &&
+            {requests.length ?
                 <div className="requests-table container">
                     <table className="table">
                         <thead className="thead-light">
@@ -68,6 +66,7 @@ function RequestsPage() {
                         )}
                     </table>
                 </div>
+                : <span className="display-4 empty-requests">Haven't got any requests yet :)</span>
             }
         </div>
     );

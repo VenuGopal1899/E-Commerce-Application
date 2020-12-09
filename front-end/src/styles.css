@@ -75,3 +75,25 @@
     font-size: 25px;
     margin-left: 615px;
 }
+.empty-cart, .empty-requests{
+    position: absolute;
+    margin-left: 400px;
+    margin-top: 200px;
+    font-size: 55px;
+}
+.btn-checkout{
+    font-size: 18px;
+    border-radius: 20px !important;
+}
+.total-bill{
+    margin-top: 50px;
+    border: 2px dotted #4373e4;
+    padding: 15px;
+    width: 450px;
+}
+
+.total-bill span{
+    margin-right: 30px;
+    font-size: 25px;
+    color: #4373e4;
+}

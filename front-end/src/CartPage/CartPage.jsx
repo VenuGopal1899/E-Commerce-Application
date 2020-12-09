@@ -11,11 +11,17 @@ function CartPage() {
     useEffect(() => {
         dispatch(cartActions.getAll());
     }, []);
+
     const its = localStorage.getItem('items') || {};
     const items = JSON.parse(its);
 
     function handleRemoveItem(id) {
         dispatch(cartActions.removeItem(id));
+    }
+
+    var totalBill = 0;
+    for(var i=0; i<items.length; i++){
+        totalBill = totalBill + (Number(items[i].productQuantity)*items[i].productPrice);
     }
 
     return (
@@ -30,30 +36,37 @@ function CartPage() {
                     </ul>
                 </div>
             </nav>
-            <div className="products-table container">
-                <table className="table">
-                    <thead className="thead-light">
-                        <tr>
-                        <th scope="col">Item No.</th>
-                        <th scope="col">Product Name</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Remove from Cart</th>
-                        </tr>
-                    </thead>
-                    {items.map((item, index) =>
-                        <tbody key={index}>
+            { items.length ?
+                <div className="products-table container">
+                    <table className="table">
+                        <thead className="thead-light">
                             <tr>
-                            <th scope="row">{index+1}</th>
-                            <td>{item.productName}</td>
-                            <td>{item.productQuantity}</td>
-                            <td>{item.productPrice}</td>
-                            <td><button onClick={() => handleRemoveItem(item.productID)} className="btn btn-outline-danger">Remove</button></td>
+                            <th scope="col">Item No.</th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Remove from Cart</th>
                             </tr>
-                        </tbody>
-                    )}
-                </table>
-            </div>
+                        </thead>
+                        {items.map((item, index) =>
+                            <tbody key={index}>
+                                <tr>
+                                <th scope="row">{index+1}</th>
+                                <td>{item.productName}</td>
+                                <td>{item.productQuantity}</td>
+                                <td>{item.productPrice}</td>
+                                <td><button onClick={() => handleRemoveItem(item.productID)} className="btn btn-outline-danger">Remove</button></td>
+                                </tr>
+                            </tbody>
+                        )}
+                    </table>
+                    <div className='total-bill container text-center'>
+                        <span className='display-5'>Your total bill is : {totalBill}</span>
+                        <button className="btn btn-outline-success btn-checkout">Checkout</button>
+                    </div>
+                </div>
+                :   <span className="display-4 empty-requests">Wow!! So Clean and Empty XD</span>
+            }
         </div>
     );
 }
