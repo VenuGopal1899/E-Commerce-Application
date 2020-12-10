@@ -66,7 +66,7 @@ function CartPage() {
                     </table>
                     <div className='total-bill container text-center'>
                         <span className='display-5'>Your total bill is : {totalBill}</span>
-                        <button onClick={() => checkout()} className="btn btn-outline-success btn-checkout">Checkout</button>
+                        <button onClick={() => checkout()} className="btn btn-outline-success btn-checkout">Place Order</button>
                     </div>
                 </div>
                 :   <span className="display-4 empty-requests">Wow!! So Clean and Empty XD</span>
