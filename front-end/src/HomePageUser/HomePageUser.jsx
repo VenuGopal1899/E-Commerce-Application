@@ -24,14 +24,14 @@ function HomePageUser() {
     }
 
     const dispatch = useDispatch();
+    const productSelector = useSelector(state => state.products);
     const user = useSelector(state => state.authentication.user);
 
     useEffect(() => {
         dispatch(productActions.getAll());
     }, []);
 
-    const prods = localStorage.getItem('products') || {};
-    const products = JSON.parse(prods);
+    const products = productSelector.items ? productSelector.items : [];
     function handleChange(e) {
         const { name, value } = e.target;
         setItem(i => ({ ...i, [name]: value }));
