@@ -5,6 +5,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { productActions, requestActions, cartActions } from '../_actions';
 
 function HomePageUser() {
+    const prods = useSelector(state => state.products);
+    const user = useSelector(state => state.authentication.user);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(productActions.getAll());
+    }, []);
+
+    const products = prods.items ? prods.items : [];
+
     const [i, setItem] = useState({
         requestedProductQuantity: ''
     });
@@ -23,15 +33,6 @@ function HomePageUser() {
         productQuantity: ''
     }
 
-    const dispatch = useDispatch();
-    const productSelector = useSelector(state => state.products);
-    const user = useSelector(state => state.authentication.user);
-
-    useEffect(() => {
-        dispatch(productActions.getAll());
-    }, []);
-
-    const products = productSelector.items ? productSelector.items : [];
     function handleChange(e) {
         const { name, value } = e.target;
         setItem(i => ({ ...i, [name]: value }));
@@ -65,32 +66,35 @@ function HomePageUser() {
                     </ul>
                 </div>
             </nav>
-            <div className="products-table container">
-                <table className="table">
-                    <thead className="thead-light">
-                        <tr>
-                        <th scope="col">Product ID</th>
-                        <th scope="col">Product Name</th>
-                        <th scope="col">Price per piece</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Add to Cart</th>
-                        <th scope="col">Out of Stock</th>
-                        </tr>
-                    </thead>
-                    {products.map((product, index) =>
-                        <tbody key={index}>
+            { prods.loading && <span className="loader display-5">Loading Products...</span>}
+            { prods.items &&
+                <div className="products-table container">
+                    <table className="table">
+                        <thead className="thead-light">
                             <tr>
-                            <th scope="row">{product.id}</th>
-                            <td>{product.name}</td>
-                            <td>{product.price}</td>
-                            <td><input type="number" name="requestedProductQuantity" min="0" onChange={handleChange}/></td>
-                            <td><button onClick={() => addItemToCart(product)} className="btn btn-outline-primary" disabled={(!i.requestedProductQuantity) || (i.requestedProductQuantity <= 0) || (product.quantity<i.requestedProductQuantity)}>Add to Cart</button></td>
-                            <td><button onClick={() => sendRequest(product)} className="btn btn-outline-success" disabled={(!i.requestedProductQuantity) || (product.quantity>=i.requestedProductQuantity)}>Notify Admin</button></td>
+                            <th scope="col">Product ID</th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Price per piece</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Add to Cart</th>
+                            <th scope="col">Out of Stock</th>
                             </tr>
-                        </tbody>
-                    )}
-                </table>
-            </div>
+                        </thead>
+                        {products.map((product, index) =>
+                            <tbody key={index}>
+                                <tr>
+                                <th scope="row">{product.id}</th>
+                                <td>{product.name}</td>
+                                <td>{product.price}</td>
+                                <td><input type="number" name="requestedProductQuantity" min="0" onChange={handleChange}/></td>
+                                <td><button onClick={() => addItemToCart(product)} className="btn btn-outline-primary" disabled={(!i.requestedProductQuantity) || (i.requestedProductQuantity <= 0) || (product.quantity<i.requestedProductQuantity)}>Add to Cart</button></td>
+                                <td><button onClick={() => sendRequest(product)} className="btn btn-outline-success" disabled={(!i.requestedProductQuantity) || (product.quantity>=i.requestedProductQuantity)}>Notify Admin</button></td>
+                                </tr>
+                            </tbody>
+                        )}
+                    </table>
+                </div>
+            }
         </div>
     );
 }

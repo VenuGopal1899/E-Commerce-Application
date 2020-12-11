@@ -41,7 +41,7 @@ function CartPage() {
                 </div>
             </nav>
             { items.length ?
-                <div className="products-table container">
+                <div className="cart-table container">
                     <table className="table">
                         <thead className="thead-light">
                             <tr>

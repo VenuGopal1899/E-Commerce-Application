@@ -5,14 +5,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { productActions } from '../_actions';
 
 function InventoryPage() {
+    const prods = useSelector(state => state.products);
     const user = useSelector(state => state.authentication.user);
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(productActions.getAll());
     }, []);
-    var prods = localStorage.getItem('products') || {};
-    var products = JSON.parse(prods);
+
+    const products = prods.items ? prods.items : [];
+
     function deleteProduct(id){
         dispatch(productActions.deleteProduct(id));
     }
@@ -30,32 +32,33 @@ function InventoryPage() {
                     </ul>
                 </div>
             </nav>
-
-            <div className="inventory-table container">
-                <table className="table">
-                    <thead className="thead-light">
-                        <tr>
-                        <th scope="col">Product ID</th>
-                        <th scope="col">Product Name</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Quantity Remaining</th>
-                        {/* <th scope="col">Delete Product</th> */}
-                        </tr>
-                    </thead>
-                    {products.map((product, index) =>
-                        <tbody key={index}>
+            { prods.loading && <span className="loader display-5">Loading Inventory...</span>}
+            { prods.items &&
+                <div className="inventory-table container">
+                    <table className="table">
+                        <thead className="thead-light">
                             <tr>
-                            <th scope="row">{product.id}</th>
-                            <td>{product.name}</td>
-                            <td>{product.price}</td>
-                            <td>{product.quantity}</td>
-                            {/* <td><button onClick={() => deleteProduct(product.id)} className="btn btn-outline-danger">Delete</button></td> */}
+                            <th scope="col">Product ID</th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Quantity Remaining</th>
+                            {/* <th scope="col">Delete Product</th> */}
                             </tr>
-                        </tbody>
-                    )}
-                </table>
-            </div>
-
+                        </thead>
+                        {products.map((product, index) =>
+                            <tbody key={index}>
+                                <tr>
+                                <th scope="row">{product.id}</th>
+                                <td>{product.name}</td>
+                                <td>{product.price}</td>
+                                <td>{product.quantity}</td>
+                                {/* <td><button onClick={() => deleteProduct(product.id)} className="btn btn-outline-danger">Delete</button></td> */}
+                                </tr>
+                            </tbody>
+                        )}
+                    </table>
+                </div>
+            }
         </div>
     );
 }
