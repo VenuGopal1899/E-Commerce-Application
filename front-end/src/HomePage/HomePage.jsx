@@ -37,6 +37,7 @@ function HomePage() {
                     <table className="table">
                         <thead className="thead-light">
                             <tr>
+                            <th scope="col">S.No</th>
                             <th scope="col">User ID</th>
                             <th scope="col">First Name</th>
                             <th scope="col">Last Name</th>
@@ -48,6 +49,7 @@ function HomePage() {
                         {users.items.map((user, index) =>
                             <tbody key={user.id}>
                                 <tr>
+                                <th scope="row">{index+1}</th>
                                 <th scope="row">User100{user.id}</th>
                                 <td>{user.firstName}</td>
                                 <td>{user.lastName}</td>

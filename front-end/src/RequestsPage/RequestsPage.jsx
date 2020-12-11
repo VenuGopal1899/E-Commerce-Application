@@ -53,7 +53,7 @@ function RequestsPage() {
                         {requests.map((request, index) =>
                             <tbody key={request.id}>
                                 <tr>
-                                <th scope="row">{request.id}</th>
+                                <th scope="row">{index+1}</th>
                                 <td>{request.userName}</td>
                                 <td>{request.productID}</td>
                                 <td>{request.productName}</td>
