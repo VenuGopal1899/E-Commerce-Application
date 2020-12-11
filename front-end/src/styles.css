@@ -64,16 +64,21 @@
 .header-nav-items .logout:hover{
     color: #e94cb5 !important;
 }
-.users-table, .products-table, .requests-table{
+.users-table, .requests-table{
     width: 1000px;
 }
-.inventory-table{
-    width: 600px;
+.products-table{
+    width: 1200px;
+}
+.inventory-table, .cart-table{
+    width: 900px;
 }
 .loader{
+    position: absolute;
     color: #4373e4;
-    font-size: 25px;
+    font-size: 35px;
     margin-left: 615px;
+    margin-top: 200px;
 }
 .empty-cart, .empty-requests{
     position: absolute;
@@ -91,7 +96,6 @@
     padding: 15px;
     width: 450px;
 }
-
 .total-bill span{
     margin-right: 30px;
     font-size: 25px;
