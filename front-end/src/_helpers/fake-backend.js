@@ -120,19 +120,18 @@ export function configureFakeBackend() {
             function deleteItem(){
                 if (!isLoggedIn()) return unauthorized();
 
-                const id = idFromUrl();
-                var sum = 0;
-                var deletedItem = items.filter(x => x.productID === id);
-                items = items.filter(x => x.productID !== id);
+                var deletedItem = items.filter(x => x.productID === idFromUrl());
                 for(var i=0; i<products.length; i++){
-                    if(products[i].id === id){
-                        sum = Number(products[i].quantity) + Number(deletedItem[0].productQuantity);
-                        products[i].quantity = sum;
+                    if(products[i].id === idFromUrl()){
+                        products[i].quantity = Number(products[i].quantity) + Number(deletedItem[0].productQuantity);
                     }
                 }
 
-                localStorage.setItem('products', JSON.stringify(products));
+                items = items.filter(x => x.productID !== idFromUrl());
+
                 localStorage.setItem('items', JSON.stringify(items));
+                localStorage.setItem('products', JSON.stringify(products));
+
                 return ok();
             }
 

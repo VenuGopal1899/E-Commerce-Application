@@ -48,7 +48,7 @@ export function cart(state = {}, action) {
 
         case cartConstants.DELETEITEM_SUCCESS:
             return {
-                items: state.items.filter(item => item.id !== action.id)
+                items: state.items.filter(item => item.productID !== action.id)
             };
 
         case cartConstants.DELETEITEM_FAILURE:
