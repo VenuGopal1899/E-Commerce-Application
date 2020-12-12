@@ -60,7 +60,7 @@ function HomePageUser() {
                 <a className="navbar-brand" href="#">Hi {user.firstName}!</a>
                 <div className="header-nav-items">
                     <ul className="navbar-nav">
-                        <li className="nav-item"><Link className="nav-link" to="/products">Products</Link></li>
+                        <li className="nav-item nav-item-active"><Link className="nav-link" to="/products">Products</Link></li>
                         <li className="nav-item"><Link className="nav-link" to="/cart">Cart</Link></li>
                         <li className="nav-item"><Link className="nav-link logout" to="/login">Logout</Link></li>
                     </ul>
