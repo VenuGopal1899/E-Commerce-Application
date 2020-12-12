@@ -80,11 +80,12 @@ export function configureFakeBackend() {
             }
 
             function deleteProduct(){
-                const productID = body;
                 if (!isLoggedIn()) return unauthorized();
 
+                const productID = body;
                 products = products.filter(x => x.id !== productID);
                 localStorage.setItem('products', JSON.stringify(products));
+
                 return ok();
             }
 
@@ -104,16 +105,30 @@ export function configureFakeBackend() {
 
             function addItem(){
                 const item = body;
+                var temp = 0;
                 for(var i=0; i<products.length; i++){
                     if(products[i].id === item.productID){
                         products[i].quantity = products[i].quantity - Number(item.productQuantity);
                     }
                 }
-                item.id = items.length ? Math.max(...items.map(x => x.id)) + 1 : 1;
-                items.push(item);
+
+                for(var i=0; i<items.length; i++){
+                    if(items[i].productID === item.productID){
+                        items[i].productQuantity = (Number(items[i].productQuantity)+Number(item.productQuantity)).toString();
+                    }
+                    else{
+                        temp++;
+                    }
+                }
+
+                if(temp == items.length){
+                    item.id = items.length ? Math.max(...items.map(x => x.id)) + 1 : 1;
+                    items.push(item);
+                }
 
                 localStorage.setItem('products', JSON.stringify(products));
                 localStorage.setItem('items', JSON.stringify(items));
+
                 return ok();
             }
 
@@ -143,18 +158,23 @@ export function configureFakeBackend() {
 
             function checkout(){
                 if (!isLoggedIn()) return unauthorized();
+
                 items = [];
                 localStorage.setItem('items', JSON.stringify(items));
+
                 return ok();
             }
 
             function addRequest(){
+                if (!isLoggedIn()) return unauthorized();
+
                 const request = body;
 
                 request.id = requests.length ? Math.max(...requests.map(x => x.id)) + 1 : 1;
                 requests.push(request);
 
                 localStorage.setItem('requests', JSON.stringify(requests));
+
                 return ok();
             }
 
@@ -166,9 +186,11 @@ export function configureFakeBackend() {
 
             function approveRequest(){
                 if (!isLoggedIn()) return unauthorized();
+
                 const id = idFromUrl();
                 var sum = 0;
                 var approvedrequest = requests.filter(x => x.id === id);
+
                 for(var i=0; i<products.length; i++){
                     if(products[i].id === approvedrequest[0].productID){
                         sum =  Number(products[i].quantity) + 2*Number(approvedrequest[0].productQuantity);
@@ -186,10 +208,12 @@ export function configureFakeBackend() {
 
             function rejectRequest(){
                 if (!isLoggedIn()) return unauthorized();
+
                 const id = idFromUrl();
                 requests = requests.filter(x => x.id !== id);
 
                 localStorage.setItem('requests', JSON.stringify(requests));
+
                 return ok();
             }
 
@@ -210,6 +234,7 @@ export function configureFakeBackend() {
 
             function getUsers() {
                 if (!isLoggedIn()) return unauthorized();
+
                 // Re-fill Total Stock
 
                 // var sum = 50;
@@ -227,6 +252,7 @@ export function configureFakeBackend() {
 
                 users = users.filter(x => x.id !== idFromUrl());
                 localStorage.setItem('users', JSON.stringify(users));
+
                 return ok();
             }
 
