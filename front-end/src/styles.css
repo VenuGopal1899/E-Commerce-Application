@@ -42,8 +42,8 @@
     margin-right: 30px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
-.header-nav-items a:hover, a:active{
-    color: #e94cb5 !important;
+.header-nav-items a:hover{
+    color: #000 !important;
 }
 .homepage-nav .header-nav-items .logout{
     font-size: 27px;
@@ -62,6 +62,9 @@
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .header-nav-items .logout:hover{
+    color: #e94cb5 !important;
+}
+.header-nav-items .nav-item-active a{
     color: #e94cb5 !important;
 }
 .users-table, .requests-table{
