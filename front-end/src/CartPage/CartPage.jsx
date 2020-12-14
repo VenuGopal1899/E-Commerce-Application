@@ -8,12 +8,12 @@ function CartPage() {
     const cart = useSelector(state => state.cart);
     const user = useSelector(state => state.authentication.user);
     const dispatch = useDispatch();
-    const items = cart.items ? cart.items : [];
+
+    const items = cart.items ? cart.items.filter(item => item.userName == user.username) : [];
 
     useEffect(() => {
         dispatch(cartActions.getAll());
     }, []);
-
 
     function handleRemoveItem(id) {
         dispatch(cartActions.removeItem(id));
