@@ -59,7 +59,7 @@ function HomePageUser() {
     return (
         <div className="homepageuser-content">
             <nav className="navbar navbar-expand-lg navbar-light bg-light homepageuser-nav">
-                <a className="navbar-brand" href="#">Hi {user.firstName}!</a>
+                <a className="navbar-brand" href="#">Hi {user.firstname}!</a>
                 <div className="header-nav-items">
                     <ul className="navbar-nav">
                         <li className="nav-item nav-item-active"><Link className="nav-link" to="/products">Products</Link></li>

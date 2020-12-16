@@ -9,8 +9,8 @@ function CartPage() {
     const user = useSelector(state => state.authentication.user);
     const dispatch = useDispatch();
 
-    const itemsList = cart.items ? cart.items : [];
-    const items = itemsList.length ? itemsList.filter(x => x.userName === user.username) : [];
+    const items = [];
+    cart.items ? items.push(cart.items) : [];
 
     useEffect(() => {
         dispatch(cartActions.getAll());
@@ -32,7 +32,7 @@ function CartPage() {
     return (
         <div className="homepageuser-content">
             <nav className="navbar navbar-expand-lg navbar-light bg-light homepageuser-nav">
-                <a className="navbar-brand" href="#">Hi {user.firstName}!</a>
+                <a className="navbar-brand" href="#">Hi {user.firstname}!</a>
                 <div className="header-nav-items">
                     <ul className="navbar-nav">
                         <li className="nav-item"><Link className="nav-link" to="/products">Products</Link></li>
@@ -41,7 +41,7 @@ function CartPage() {
                     </ul>
                 </div>
             </nav>
-            { items.length ?
+            { items && items.length ?
                 <div className="cart-table container">
                     <table className="table">
                         <thead className="thead-light">

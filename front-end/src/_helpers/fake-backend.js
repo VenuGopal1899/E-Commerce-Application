@@ -63,8 +63,8 @@ export function configureFakeBackend() {
                 return ok({
                     id: user.id,
                     username: user.username,
-                    firstName: user.firstName,
-                    lastName: user.lastName,
+                    firstname: user.firstname,
+                    lastname: user.lastname,
                     token: 'fake-jwt-token'
                 });
             }

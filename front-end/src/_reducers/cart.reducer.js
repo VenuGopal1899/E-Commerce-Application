@@ -3,13 +3,15 @@ import { cartConstants } from '../_constants';
 export function cart(state = {}, action) {
     switch (action.type) {
         case cartConstants.GETALLITEMS_REQUEST:
+            console.log(state, 'state.items');
             return {
-                loading: true
+                loading: true,
+                items: state.items
             };
 
         case cartConstants.GETALLITEMS_SUCCESS:
             return {
-                items: action.items
+                items: state.items
             };
 
         case cartConstants.GETALLITEMS_FAILURE:
@@ -18,14 +20,15 @@ export function cart(state = {}, action) {
             };
 
         case cartConstants.ADDITEM_REQUEST:
+            console.log(state, 'state');
             return {
                 ...state,
-                items :  { ...action, adding: true }
+                items :  action.item
             };
 
         case cartConstants.ADDITEM_SUCCESS:
             return {
-                items: {...state, action}
+                items: state.items
             };
 
         case cartConstants.ADDITEM_FAILURE:

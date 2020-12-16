@@ -17,7 +17,7 @@ function addItem(item) {
         cartService.addItem(item)
             .then(
                 item => {
-                    dispatch(success());
+                    dispatch(success(item));
                 },
                 error => {
                     dispatch(failure(error.toString()));

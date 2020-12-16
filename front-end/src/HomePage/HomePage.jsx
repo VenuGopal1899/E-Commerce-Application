@@ -20,7 +20,7 @@ function HomePage() {
     return (
         <div className="homepage-content">
             <nav className="navbar navbar-expand-lg navbar-light bg-light homepage-nav">
-                <a className="navbar-brand" href="#">Hi {user.firstName}!</a>
+                <a className="navbar-brand" href="#">Hi {user.firstname}!</a>
                 <div className="header-nav-items">
                     <ul className="navbar-nav">
                         <li className="nav-item nav-item-active"><Link className="nav-link" to="/users">Users</Link></li>
@@ -38,7 +38,6 @@ function HomePage() {
                         <thead className="thead-light">
                             <tr>
                             <th scope="col">S.No</th>
-                            <th scope="col">User ID</th>
                             <th scope="col">First Name</th>
                             <th scope="col">Last Name</th>
                             <th scope="col">Mail</th>
@@ -50,9 +49,8 @@ function HomePage() {
                             <tbody key={user.id}>
                                 <tr>
                                 <th scope="row">{index+1}</th>
-                                <th scope="row">User100{user.id}</th>
-                                <td>{user.firstName}</td>
-                                <td>{user.lastName}</td>
+                                <td>{user.firstname}</td>
+                                <td>{user.lastname}</td>
                                 <td>{user.mail}</td>
                                 <td>{user.phoneno}</td>
                                 <td><button onClick={() => handleDeleteUser(user.id)} className="btn btn-outline-danger">Delete</button></td>

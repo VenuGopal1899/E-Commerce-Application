@@ -26,7 +26,7 @@ function RequestsPage() {
     return (
         <div className="homepage-content">
             <nav className="navbar navbar-expand-lg navbar-light bg-light homepage-nav">
-                <a className="navbar-brand" href="#">Hi {user.firstName}!</a>
+                <a className="navbar-brand" href="#">Hi {user.firstname}!</a>
                 <div className="header-nav-items">
                     <ul className="navbar-nav">
                         <li className="nav-item"><Link className="nav-link" to="/users">Users</Link></li>
