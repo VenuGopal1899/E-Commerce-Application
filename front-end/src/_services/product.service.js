@@ -1,5 +1,6 @@
 import config from 'config';
 import { authHeader } from '../_helpers';
+import API_URL from '../assets/API_URL';
 
 export const productService = {
     addProduct,
@@ -15,7 +16,7 @@ function addProduct(product){
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(product)
     };
-    return fetch(`${config.apiUrl}/products/addProduct`, requestOptions).then(handleResponse);
+    return fetch(`${API_URL}/products/addProduct`, requestOptions).then(handleResponse);
 }
 
 function getAll() {
@@ -24,7 +25,7 @@ function getAll() {
         headers: authHeader()
     };
 
-    return fetch(`${config.apiUrl}/products`, requestOptions).then(handleResponse);
+    return fetch(`${API_URL}/products`, requestOptions).then(handleResponse);
 }
 
 function getById(id) {
@@ -33,7 +34,7 @@ function getById(id) {
         headers: authHeader()
     };
 
-    return fetch(`${config.apiUrl}/products/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${API_URL}/products/${id}`, requestOptions).then(handleResponse);
 }
 
 function update(product) {
@@ -43,7 +44,7 @@ function update(product) {
         body: JSON.stringify(product)
     };
 
-    return fetch(`${config.apiUrl}/products/${product.id}`, requestOptions).then(handleResponse);;
+    return fetch(`${API_URL}/products/${product.id}`, requestOptions).then(handleResponse);;
 }
 
 function _delete(id) {
@@ -52,7 +53,7 @@ function _delete(id) {
         headers: authHeader()
     };
 
-    return fetch(`${config.apiUrl}/products/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${API_URL}/products/${id}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {

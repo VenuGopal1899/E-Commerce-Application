@@ -1,5 +1,6 @@
 import config from 'config';
 import { authHeader } from '../_helpers';
+import API_URL from '../assets/API_URL';
 
 export const cartService = {
     addItem,
@@ -14,7 +15,7 @@ function addItem(item){
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(item)
     };
-    return fetch(`${config.apiUrl}/cart/addItem`, requestOptions).then(handleResponse);
+    return fetch(`${API_URL}/cart/addItem`, requestOptions).then(handleResponse);
 }
 
 function getAll() {
@@ -23,7 +24,7 @@ function getAll() {
         headers: authHeader()
     };
 
-    return fetch(`${config.apiUrl}/cart`, requestOptions).then(handleResponse);
+    return fetch(`${API_URL}/cart`, requestOptions).then(handleResponse);
 }
 
 function removeItem(username, id) {
@@ -33,7 +34,7 @@ function removeItem(username, id) {
         body: JSON.stringify({ username, id })
     };
 
-    return fetch(`${config.apiUrl}/cart/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${API_URL}/cart/${id}`, requestOptions).then(handleResponse);
 }
 
 function checkout(){
@@ -42,7 +43,7 @@ function checkout(){
         headers: authHeader()
     }
 
-    return fetch(`${config.apiUrl}/cart`, requestOptions).then(handleResponse);
+    return fetch(`${API_URL}/cart`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {
