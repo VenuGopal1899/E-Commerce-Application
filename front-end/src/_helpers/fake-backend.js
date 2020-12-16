@@ -93,7 +93,7 @@ export function configureFakeBackend() {
                 if (!isLoggedIn()) return unauthorized();
                 // Re-fill Total Stock
 
-                // var quantity = 50;
+                // var quantity = 100;
 
                 // for(var i=0; i<products.length; i++){
                 //     products[i].quantity = quantity.toString();
@@ -113,7 +113,7 @@ export function configureFakeBackend() {
                 }
 
                 for(var i=0; i<items.length; i++){
-                    if(items[i].productID === item.productID){
+                    if((items[i].productID === item.productID) && (items[i].userName === item.userName)){
                         items[i].productQuantity = (Number(items[i].productQuantity)+Number(item.productQuantity)).toString();
                     }
                     else{
@@ -135,14 +135,22 @@ export function configureFakeBackend() {
             function deleteItem(){
                 if (!isLoggedIn()) return unauthorized();
 
-                var deletedItem = items.filter(x => x.productID === idFromUrl());
+                const it = body;
+                const newItemsList = [];
+                var deletedItem = items.filter(x => ((x.productID === it.id) && (x.userName === it.userName)));
                 for(var i=0; i<products.length; i++){
-                    if(products[i].id === idFromUrl()){
+                    if(products[i].id === it.id){
                         products[i].quantity = Number(products[i].quantity) + Number(deletedItem[0].productQuantity);
                     }
                 }
-
-                items = items.filter(x => x.productID !== idFromUrl());
+                for(var i=0; i<items.length; i++){
+                    if(items[i].userName === it.userName && items[i].productID === it.id){
+                        continue;
+                    } else {
+                        newItemsList.push(items[i]);
+                    }
+                }
+                items = newItemsList;
 
                 localStorage.setItem('items', JSON.stringify(items));
                 localStorage.setItem('products', JSON.stringify(products));

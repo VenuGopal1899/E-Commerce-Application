@@ -47,19 +47,19 @@ function getAll() {
     function failure(error) { return { type: cartConstants.GETALLITEMS_FAILURE, error } }
 }
 
-function removeItem(id) {
+function removeItem(username, id) {
     return dispatch => {
-        dispatch(request(id));
+        dispatch(request({username, id}));
 
-        cartService.removeItem(id)
+        cartService.removeItem(username, id)
             .then(
-                item => dispatch(success(id)),
+                items => dispatch(success(username,id)),
                 error => dispatch(failure(id, error.toString()))
             );
     };
 
-    function request(id) { return { type: cartConstants.DELETEITEM_REQUEST, id } }
-    function success(id) { return { type: cartConstants.DELETEITEM_SUCCESS, id } }
+    function request(username, id) { return { type: cartConstants.DELETEITEM_REQUEST, username, id } }
+    function success(username, id) { return { type: cartConstants.DELETEITEM_SUCCESS, username, id } }
     function failure(id, error) { return { type: cartConstants.DELETEITEM_FAILURE, id, error } }
 }
 

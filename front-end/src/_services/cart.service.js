@@ -26,10 +26,11 @@ function getAll() {
     return fetch(`${config.apiUrl}/cart`, requestOptions).then(handleResponse);
 }
 
-function removeItem(id) {
+function removeItem(username, id) {
     const requestOptions = {
         method: 'DELETE',
-        headers: authHeader()
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, id })
     };
 
     return fetch(`${config.apiUrl}/cart/${id}`, requestOptions).then(handleResponse);

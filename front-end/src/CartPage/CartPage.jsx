@@ -9,14 +9,15 @@ function CartPage() {
     const user = useSelector(state => state.authentication.user);
     const dispatch = useDispatch();
 
-    const items = cart.items ? cart.items.filter(item => item.userName == user.username) : [];
+    const itemsList = cart.items ? cart.items : [];
+    const items = itemsList.length ? itemsList.filter(x => x.userName === user.username) : [];
 
     useEffect(() => {
         dispatch(cartActions.getAll());
     }, []);
 
     function handleRemoveItem(id) {
-        dispatch(cartActions.removeItem(id));
+        dispatch(cartActions.removeItem(user.username, id));
     }
 
     function checkout(){
