@@ -33,7 +33,7 @@ function removeItem(username, id) {
         body: JSON.stringify({ username, id })
     };
 
-    return fetch(`${config.apiUrl}/cart/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/cart/deleteItem`, requestOptions).then(handleResponse);
 }
 
 function checkout(){

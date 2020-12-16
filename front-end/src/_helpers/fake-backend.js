@@ -34,8 +34,8 @@ export function configureFakeBackend() {
                         return getItems();
                     case url.endsWith('/cart/addItem') && method === 'POST':
                         return addItem();
-                    case url.match(/\/cart\/\d+$/) && method === 'DELETE':
-                            return deleteItem();
+                    case url.endsWith('/cart/deleteItem') && method === 'DELETE':
+                        return deleteItem();
                     case url.match('/cart') && method === 'DELETE':
                         return checkout();
                     case url.endsWith('/requests') && method === 'GET':
@@ -133,25 +133,24 @@ export function configureFakeBackend() {
             }
 
             function deleteItem(){
-                if (!isLoggedIn()) return unauthorized();
-
                 const it = body;
                 const newItemsList = [];
-                var deletedItem = items.filter(x => ((x.productID === it.id) && (x.userName === it.userName)));
+                var deletedItem = items.filter(x => ((x.productID === it.id) && (x.userName === it.username)));
                 for(var i=0; i<products.length; i++){
                     if(products[i].id === it.id){
                         products[i].quantity = Number(products[i].quantity) + Number(deletedItem[0].productQuantity);
                     }
                 }
+
                 for(var i=0; i<items.length; i++){
-                    if(items[i].userName === it.userName && items[i].productID === it.id){
+                    if(items[i].userName === it.username && items[i].productID === it.id){
                         continue;
                     } else {
                         newItemsList.push(items[i]);
                     }
                 }
-                items = newItemsList;
 
+                items = newItemsList;
                 localStorage.setItem('items', JSON.stringify(items));
                 localStorage.setItem('products', JSON.stringify(products));
 
@@ -245,7 +244,7 @@ export function configureFakeBackend() {
 
                 // Re-fill Total Stock
 
-                // var sum = 50;
+                // var sum = 100;
 
                 // for(var i=0; i<products.length; i++){
                 //     products[i].quantity = sum.toString();
