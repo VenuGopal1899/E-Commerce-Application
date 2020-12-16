@@ -15,7 +15,7 @@ function addRequest(r){
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(r)
     };
-    return fetch(`${API_URL}/requests/addRequest`, requestOptions).then(handleResponse);
+    return fetch(`http://${API_URL}/requests/addRequest`, requestOptions).then(handleResponse);
 }
 
 function getAll() {
@@ -24,7 +24,7 @@ function getAll() {
         headers: authHeader()
     };
 
-    return fetch(`${API_URL}/requests`, requestOptions).then(handleResponse);
+    return fetch(`http://${API_URL}/requests`, requestOptions).then(handleResponse);
 }
 
 function approveRequest(id) {
@@ -33,7 +33,7 @@ function approveRequest(id) {
         headers: authHeader()
     };
 
-    return fetch(`${API_URL}/requests/approve/${id}`, requestOptions).then(handleResponse);
+    return fetch(`http://${API_URL}/requests/approve/${id}`, requestOptions).then(handleResponse);
 }
 
 function rejectRequest(id) {
@@ -42,7 +42,7 @@ function rejectRequest(id) {
         headers: authHeader()
     };
 
-    return fetch(`${API_URL}/requests/reject/${id}`, requestOptions).then(handleResponse);
+    return fetch(`http://${API_URL}/requests/reject/${id}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {

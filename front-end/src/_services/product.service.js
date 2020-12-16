@@ -16,7 +16,7 @@ function addProduct(product){
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(product)
     };
-    return fetch(`${API_URL}/products/addProduct`, requestOptions).then(handleResponse);
+    return fetch(`http://${API_URL}/products/addProduct`, requestOptions).then(handleResponse);
 }
 
 function getAll() {
@@ -25,7 +25,7 @@ function getAll() {
         headers: authHeader()
     };
 
-    return fetch(`${API_URL}/products`, requestOptions).then(handleResponse);
+    return fetch(`http://${API_URL}/products`, requestOptions).then(handleResponse);
 }
 
 function getById(id) {
@@ -34,7 +34,7 @@ function getById(id) {
         headers: authHeader()
     };
 
-    return fetch(`${API_URL}/products/${id}`, requestOptions).then(handleResponse);
+    return fetch(`http://${API_URL}/products/${id}`, requestOptions).then(handleResponse);
 }
 
 function update(product) {
@@ -44,7 +44,7 @@ function update(product) {
         body: JSON.stringify(product)
     };
 
-    return fetch(`${API_URL}/products/${product.id}`, requestOptions).then(handleResponse);;
+    return fetch(`http://${API_URL}/products/${product.id}`, requestOptions).then(handleResponse);;
 }
 
 function _delete(id) {
@@ -53,7 +53,7 @@ function _delete(id) {
         headers: authHeader()
     };
 
-    return fetch(`${API_URL}/products/${id}`, requestOptions).then(handleResponse);
+    return fetch(`http://${API_URL}/products/${id}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {

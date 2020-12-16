@@ -15,7 +15,7 @@ function addItem(item){
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(item)
     };
-    return fetch(`${API_URL}/cart/addItem`, requestOptions).then(handleResponse);
+    return fetch(`http://${API_URL}/cart/addItem`, requestOptions).then(handleResponse);
 }
 
 function getAll() {
@@ -24,7 +24,7 @@ function getAll() {
         headers: authHeader()
     };
 
-    return fetch(`${API_URL}/cart`, requestOptions).then(handleResponse);
+    return fetch(`http://${API_URL}/cart`, requestOptions).then(handleResponse);
 }
 
 function removeItem(username, id) {
@@ -34,7 +34,7 @@ function removeItem(username, id) {
         body: JSON.stringify({ username, id })
     };
 
-    return fetch(`${API_URL}/cart/${id}`, requestOptions).then(handleResponse);
+    return fetch(`http://${API_URL}/cart/${id}`, requestOptions).then(handleResponse);
 }
 
 function checkout(){
@@ -43,7 +43,7 @@ function checkout(){
         headers: authHeader()
     }
 
-    return fetch(`${API_URL}/cart`, requestOptions).then(handleResponse);
+    return fetch(`http://${API_URL}/cart`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {
