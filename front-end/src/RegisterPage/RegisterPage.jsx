@@ -63,7 +63,7 @@ function RegisterPage() {
                 </div>
                 <div className="form-group">
                     <label>Phone Number</label>
-                    <input type="tel" name="phoneno" value={user.phoneno} pattern="[1-9][0-9]{9,11}" maxlength="10" onChange={handleChange} className={'form-control' + (submitted && !user.phoneno ? ' is-invalid' : '')} />
+                    <input type="tel" name="phoneno" value={user.phoneno} pattern="[1-9][0-9]{9,11}" maxLength="10" onChange={handleChange} className={'form-control' + (submitted && !user.phoneno ? ' is-invalid' : '')} />
                     {submitted && !user.phoneno &&
                         <div className="invalid-feedback">Phone number is required</div>
                     }
