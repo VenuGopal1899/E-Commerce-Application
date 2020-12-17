@@ -20,6 +20,7 @@ function HomePageUser() {
     });
 
     const item = {
+        userName: '',
         productID: '',
         productName: '',
         productPrice: '',
@@ -39,6 +40,7 @@ function HomePageUser() {
     }
 
     function addItemToCart(p){
+        item.userName = user.username;
         item.productID = p.id;
         item.productName = p.name;
         item.productPrice = p.price;

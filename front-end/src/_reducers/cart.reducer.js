@@ -42,13 +42,20 @@ export function cart(state = {}, action) {
 
         case cartConstants.DELETEITEM_REQUEST:
             return {
-                ...state,
-                items: state.items.map(item => item.id === action.id ? { ...item, deleting: true } : item)
+                items: state.items.map(item => (item.id === action.username.id && item.userName === action.username.username) ? { ...item, deleting: true } : item)
             };
 
         case cartConstants.DELETEITEM_SUCCESS:
+            const newItemsList = [];
+            for(var i=0; i<state.items.length; i++){
+                if(state.items[i].userName === action.username && state.items[i].productID === action.id){
+                    continue;
+                } else {
+                    newItemsList.push(state.items[i]);
+                }
+            }
             return {
-                items: state.items.filter(item => item.productID !== action.id)
+                items: newItemsList
             };
 
         case cartConstants.DELETEITEM_FAILURE:

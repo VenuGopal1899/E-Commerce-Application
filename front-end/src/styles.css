@@ -41,9 +41,11 @@
     color: #4373e4  !important;
     margin-right: 30px;
     font-family: Georgia, 'Times New Roman', Times, serif;
+    outline: none;
 }
 .header-nav-items a:hover{
     color: #000 !important;
+    outline: none;
 }
 .homepage-nav .header-nav-items .logout{
     font-size: 27px;
@@ -51,6 +53,7 @@
     color: #4373e4 !important;
     padding: 4px;
     margin-top: 4px;
+    outline: none;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .homepageuser-nav .header-nav-items .logout{
@@ -59,6 +62,7 @@
     color: #4373e4 !important;
     padding: 4px;
     margin-top: 4px;
+    outline: none;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .header-nav-items .logout:hover{
@@ -66,6 +70,7 @@
 }
 .header-nav-items .nav-item-active a{
     color: #e94cb5 !important;
+    outline: none;
 }
 .users-table, .requests-table{
     width: 1000px;
@@ -92,12 +97,13 @@
 .btn-checkout{
     font-size: 18px;
     border-radius: 20px !important;
+    margin-top: 17px;
 }
 .total-bill{
     margin-top: 50px;
     border: 2px dotted #4373e4;
     padding: 15px;
-    width: 450px;
+    width: 350px;
 }
 .total-bill span{
     margin-right: 30px;

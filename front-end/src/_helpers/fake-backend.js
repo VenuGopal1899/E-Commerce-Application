@@ -34,8 +34,8 @@ export function configureFakeBackend() {
                         return getItems();
                     case url.endsWith('/cart/addItem') && method === 'POST':
                         return addItem();
-                    case url.match(/\/cart\/\d+$/) && method === 'DELETE':
-                            return deleteItem();
+                    case url.endsWith('/cart/deleteItem') && method === 'DELETE':
+                        return deleteItem();
                     case url.match('/cart') && method === 'DELETE':
                         return checkout();
                     case url.endsWith('/requests') && method === 'GET':
@@ -80,11 +80,12 @@ export function configureFakeBackend() {
             }
 
             function deleteProduct(){
-                const productID = body;
                 if (!isLoggedIn()) return unauthorized();
 
+                const productID = body;
                 products = products.filter(x => x.id !== productID);
                 localStorage.setItem('products', JSON.stringify(products));
+
                 return ok();
             }
 
@@ -92,7 +93,7 @@ export function configureFakeBackend() {
                 if (!isLoggedIn()) return unauthorized();
                 // Re-fill Total Stock
 
-                // var quantity = 50;
+                // var quantity = 100;
 
                 // for(var i=0; i<products.length; i++){
                 //     products[i].quantity = quantity.toString();
@@ -104,31 +105,52 @@ export function configureFakeBackend() {
 
             function addItem(){
                 const item = body;
+                var temp = 0;
                 for(var i=0; i<products.length; i++){
                     if(products[i].id === item.productID){
                         products[i].quantity = products[i].quantity - Number(item.productQuantity);
                     }
                 }
-                item.id = items.length ? Math.max(...items.map(x => x.id)) + 1 : 1;
-                items.push(item);
+
+                for(var i=0; i<items.length; i++){
+                    if((items[i].productID === item.productID) && (items[i].userName === item.userName)){
+                        items[i].productQuantity = (Number(items[i].productQuantity)+Number(item.productQuantity)).toString();
+                    }
+                    else{
+                        temp++;
+                    }
+                }
+
+                if(temp == items.length){
+                    item.id = items.length ? Math.max(...items.map(x => x.id)) + 1 : 1;
+                    items.push(item);
+                }
 
                 localStorage.setItem('products', JSON.stringify(products));
                 localStorage.setItem('items', JSON.stringify(items));
+
                 return ok();
             }
 
             function deleteItem(){
-                if (!isLoggedIn()) return unauthorized();
-
-                var deletedItem = items.filter(x => x.productID === idFromUrl());
+                const it = body;
+                const newItemsList = [];
+                var deletedItem = items.filter(x => ((x.productID === it.id) && (x.userName === it.username)));
                 for(var i=0; i<products.length; i++){
-                    if(products[i].id === idFromUrl()){
+                    if(products[i].id === it.id){
                         products[i].quantity = Number(products[i].quantity) + Number(deletedItem[0].productQuantity);
                     }
                 }
 
-                items = items.filter(x => x.productID !== idFromUrl());
+                for(var i=0; i<items.length; i++){
+                    if(items[i].userName === it.username && items[i].productID === it.id){
+                        continue;
+                    } else {
+                        newItemsList.push(items[i]);
+                    }
+                }
 
+                items = newItemsList;
                 localStorage.setItem('items', JSON.stringify(items));
                 localStorage.setItem('products', JSON.stringify(products));
 
@@ -143,8 +165,10 @@ export function configureFakeBackend() {
 
             function checkout(){
                 if (!isLoggedIn()) return unauthorized();
+
                 items = [];
                 localStorage.setItem('items', JSON.stringify(items));
+
                 return ok();
             }
 
@@ -155,6 +179,7 @@ export function configureFakeBackend() {
                 requests.push(request);
 
                 localStorage.setItem('requests', JSON.stringify(requests));
+
                 return ok();
             }
 
@@ -166,9 +191,11 @@ export function configureFakeBackend() {
 
             function approveRequest(){
                 if (!isLoggedIn()) return unauthorized();
+
                 const id = idFromUrl();
                 var sum = 0;
                 var approvedrequest = requests.filter(x => x.id === id);
+
                 for(var i=0; i<products.length; i++){
                     if(products[i].id === approvedrequest[0].productID){
                         sum =  Number(products[i].quantity) + 2*Number(approvedrequest[0].productQuantity);
@@ -186,10 +213,12 @@ export function configureFakeBackend() {
 
             function rejectRequest(){
                 if (!isLoggedIn()) return unauthorized();
+
                 const id = idFromUrl();
                 requests = requests.filter(x => x.id !== id);
 
                 localStorage.setItem('requests', JSON.stringify(requests));
+
                 return ok();
             }
 
@@ -210,9 +239,10 @@ export function configureFakeBackend() {
 
             function getUsers() {
                 if (!isLoggedIn()) return unauthorized();
+
                 // Re-fill Total Stock
 
-                // var sum = 50;
+                // var sum = 100;
 
                 // for(var i=0; i<products.length; i++){
                 //     products[i].quantity = sum.toString();
@@ -227,6 +257,7 @@ export function configureFakeBackend() {
 
                 users = users.filter(x => x.id !== idFromUrl());
                 localStorage.setItem('users', JSON.stringify(users));
+
                 return ok();
             }
 
