@@ -48,7 +48,7 @@ export function cart(state = {}, action) {
         case cartConstants.DELETEITEM_SUCCESS:
             const newItemsList = [];
             for(var i=0; i<state.items.length; i++){
-                if(state.items[i].userName === action.username && state.items[i].productID === action.id){
+                if(state.items[i].uname === action.username && state.items[i].id === action.id){
                     continue;
                 } else {
                     newItemsList.push(state.items[i]);

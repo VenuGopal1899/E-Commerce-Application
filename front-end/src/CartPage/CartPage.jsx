@@ -10,7 +10,9 @@ function CartPage() {
     const dispatch = useDispatch();
 
     var items = [];
-    items = cart.items ? cart.items : [];
+    var itemsList = [];
+    itemsList = cart.items ? cart.items : [];
+    items = itemsList.length ? itemsList.filter(x => x.uname === user.username) : [];
 
     useEffect(() => {
         dispatch(cartActions.getAll());
