@@ -173,8 +173,6 @@ export function configureFakeBackend() {
             }
 
             function addRequest(){
-                if (!isLoggedIn()) return unauthorized();
-
                 const request = body;
 
                 request.id = requests.length ? Math.max(...requests.map(x => x.id)) + 1 : 1;

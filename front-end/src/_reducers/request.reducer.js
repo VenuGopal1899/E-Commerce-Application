@@ -20,12 +20,12 @@ export function requests(state = {}, action) {
         case requestConstants.ADDREQUEST_REQUEST:
             return {
                 ...state,
-                items :  { ...action, adding: true }
+                items :  action.r
             };
 
         case requestConstants.ADDREQUEST_SUCCESS:
             return {
-                items: {...state, action}
+                items: {...state }
             };
 
         case requestConstants.ADDREQUEST_FAILURE:
