@@ -85,7 +85,7 @@ function HomePageUser() {
                         {products.map((product, index) =>
                             <tbody key={index}>
                                 <tr>
-                                <th scope="row">{product.id}</th>
+                                <th scope="row">{index+1}</th>
                                 <td>{product.name}</td>
                                 <td>{product.price}</td>
                                 <td><input type="number" name="requestedProductQuantity" min="0" onChange={handleChange}/></td>

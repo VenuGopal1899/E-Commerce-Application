@@ -3,15 +3,13 @@ import { cartConstants } from '../_constants';
 export function cart(state = {}, action) {
     switch (action.type) {
         case cartConstants.GETALLITEMS_REQUEST:
-            console.log(state, 'state.items');
             return {
-                loading: true,
-                items: state.items
+                loading: true
             };
 
         case cartConstants.GETALLITEMS_SUCCESS:
             return {
-                items: state.items
+                items: action.items
             };
 
         case cartConstants.GETALLITEMS_FAILURE:
@@ -20,15 +18,14 @@ export function cart(state = {}, action) {
             };
 
         case cartConstants.ADDITEM_REQUEST:
-            console.log(state, 'state');
             return {
                 ...state,
-                items :  action.item
+                items :  { ...action, adding: true }
             };
 
         case cartConstants.ADDITEM_SUCCESS:
             return {
-                items: state.items
+                items: {...state, action}
             };
 
         case cartConstants.ADDITEM_FAILURE:
@@ -51,7 +48,7 @@ export function cart(state = {}, action) {
         case cartConstants.DELETEITEM_SUCCESS:
             const newItemsList = [];
             for(var i=0; i<state.items.length; i++){
-                if(state.items[i].userName === action.items.username && state.items[i].productID === action.items.id){
+                if(state.items[i].userName === action.username && state.items[i].productID === action.id){
                     continue;
                 } else {
                     newItemsList.push(state.items[i]);

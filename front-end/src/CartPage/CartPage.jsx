@@ -9,8 +9,8 @@ function CartPage() {
     const user = useSelector(state => state.authentication.user);
     const dispatch = useDispatch();
 
-    const items = [];
-    cart.items ? items.push(cart.items) : [];
+    var items = [];
+    items = cart.items ? cart.items : [];
 
     useEffect(() => {
         dispatch(cartActions.getAll());
@@ -26,7 +26,7 @@ function CartPage() {
 
     var totalBill = 0;
     for(var i=0; i<items.length; i++){
-        totalBill = totalBill + (Number(items[i].productQuantity)*items[i].productPrice);
+        totalBill = totalBill + (Number(items[i].quantity)*items[i].price);
     }
 
     return (
@@ -57,10 +57,10 @@ function CartPage() {
                             <tbody key={index}>
                                 <tr>
                                 <th scope="row">{index+1}</th>
-                                <td>{item.productName}</td>
-                                <td>{item.productQuantity}</td>
-                                <td>{item.productPrice}</td>
-                                <td><button onClick={() => handleRemoveItem(item.productID)} className="btn btn-outline-danger">Remove</button></td>
+                                <td>{item.pname}</td>
+                                <td>{item.quantity}</td>
+                                <td>{item.price}</td>
+                                <td><button onClick={() => handleRemoveItem(item.id)} className="btn btn-outline-danger">Remove</button></td>
                                 </tr>
                             </tbody>
                         )}

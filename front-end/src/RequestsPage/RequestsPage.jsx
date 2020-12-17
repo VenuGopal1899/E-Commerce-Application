@@ -43,7 +43,6 @@ function RequestsPage() {
                             <tr>
                             <th scope="col">S.No</th>
                             <th scope="col">User Name</th>
-                            <th scope="col">Product ID</th>
                             <th scope="col">Product Name</th>
                             <th scope="col">Requested Quantity</th>
                             <th scope="col">Approve</th>
@@ -54,10 +53,9 @@ function RequestsPage() {
                             <tbody key={request.id}>
                                 <tr>
                                 <th scope="row">{index+1}</th>
-                                <td>{request.userName}</td>
-                                <td>{request.productID}</td>
-                                <td>{request.productName}</td>
-                                <td>{request.productQuantity}</td>
+                                <td>{request.uname}</td>
+                                <td>{request.pname}</td>
+                                <td>{request.quantity}</td>
                                 <td><button onClick={ () => approveRequest(request)} className="btn btn-outline-success">Approve</button></td>
                                 <td><button onClick={ () => rejectRequest(request)} className="btn btn-outline-danger">Reject</button></td>
                                 </tr>
