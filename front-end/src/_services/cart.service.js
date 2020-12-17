@@ -37,17 +37,17 @@ function removeItem(username, id) {
     return fetch(`http://${API_URL}/cart/${id}`, requestOptions).then(handleResponse);
 }
 
-function checkout(){
+function checkout(username){
     const requestOptions = {
         method: 'DELETE',
-        headers: authHeader()
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(username)
     }
 
     return fetch(`http://${API_URL}/cart`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {
-    console.log(response, 'response');
     return response.text().then(text => {
         const data = text && JSON.parse(text);
         if (!response.ok) {

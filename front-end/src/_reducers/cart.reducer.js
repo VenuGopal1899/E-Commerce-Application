@@ -42,7 +42,7 @@ export function cart(state = {}, action) {
 
         case cartConstants.DELETEITEM_REQUEST:
             return {
-                items: state.items.map(item => (item.id === action.username.id && item.userName === action.username.username) ? { ...item, deleting: true } : item)
+                items: state.items.map(item => (item.id === action.username.id && item.uname === action.username.username) ? { ...item, deleting: true } : item)
             };
 
         case cartConstants.DELETEITEM_SUCCESS:
@@ -73,12 +73,20 @@ export function cart(state = {}, action) {
 
         case cartConstants.CHECKOUT_REQUEST:
             return {
-                items: state.items
+                items: state.items.map(user => (user.uname === action.username) ? { ...user, deleting: true } : user)
             }
 
         case cartConstants.CHECKOUT_SUCCESS:
+            const newItemsList2 = [];
+            for(var i=0; i<state.items.length; i++){
+                if(state.items[i].uname === action.username){
+                    continue;
+                } else {
+                    newItemsList2.push(state.items[i]);
+                }
+            }
             return {
-                items: {}
+                items: newItemsList2
             }
 
         case cartConstants.CHECKOUT_FAILURE:

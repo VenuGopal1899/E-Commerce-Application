@@ -63,21 +63,21 @@ function removeItem(username, id) {
     function failure(id, error) { return { type: cartConstants.DELETEITEM_FAILURE, id, error } }
 }
 
-function checkout(){
+function checkout(username){
     return dispatch => {
-        dispatch(request());
+        dispatch(request(username));
 
-        cartService.checkout()
+        cartService.checkout(username)
             .then(
                 items => {
-                    dispatch(success(items)),
+                    dispatch(success(username)),
                     history.push('/products')
                 },
                 error => dispatch(failure(error.toString()))
             );
     };
 
-    function request() { return { type: cartConstants.CHECKOUT_REQUEST } }
-    function success(items) { return { type: cartConstants.CHECKOUT_SUCCESS, items } }
+    function request(username) { return { type: cartConstants.CHECKOUT_REQUEST, username } }
+    function success(username) { return { type: cartConstants.CHECKOUT_SUCCESS, username } }
     function failure(error) { return { type: cartConstants.CHECKOUT_FAILURE, error } }
 }

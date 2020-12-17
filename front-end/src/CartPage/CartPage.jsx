@@ -23,7 +23,7 @@ function CartPage() {
     }
 
     function checkout(){
-        dispatch(cartActions.checkout());
+        dispatch(cartActions.checkout(user.username));
     }
 
     var totalBill = 0;
