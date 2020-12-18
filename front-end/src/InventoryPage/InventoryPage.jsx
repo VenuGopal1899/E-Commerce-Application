@@ -39,7 +39,6 @@ function InventoryPage() {
                         <thead className="thead-light">
                             <tr>
                             <th scope="col">S.No</th>
-                            <th scope="col">Product ID</th>
                             <th scope="col">Product Name</th>
                             <th scope="col">Price</th>
                             <th scope="col">Quantity Remaining</th>
@@ -50,7 +49,6 @@ function InventoryPage() {
                             <tbody key={index}>
                                 <tr>
                                 <th scope="row">{index+1}</th>
-                                <th>PRO-{product.id}</th>
                                 <td>{product.name}</td>
                                 <td>{product.price}</td>
                                 <td>{product.quantity}</td>
